@@ -1,0 +1,9 @@
+{
+  "extends": "@tsconfig/recommended/tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "module": "es2022",
+    "moduleResolution": "node",
+    "incremental": true
+  }
+}
