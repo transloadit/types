@@ -1,10 +1,8 @@
 import * as z from "zod";
 import { ignoreErrorsSchema } from "./shared/ignore-errors";
-import { useSchema } from "./shared/use";
 
 export const importHttpRobotSchema = z.object({
   robot: z.literal("/http/import"),
-  use: z.optional(useSchema),
   url: z.union([z.string(), z.array(z.string())])
     .describe(`The URL from which the file to be imported can be retrieved.
   

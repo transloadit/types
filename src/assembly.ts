@@ -1,13 +1,16 @@
 import * as z from "zod";
-import { importAzureRobotSchema } from "./robots/import-azure";
-import { importBackblazeRobotSchema } from "./robots/import-backblaze";
-import { importRackspaceCloudfilesRobotSchema } from "./robots/import-cloudfiles";
-import { importDigitalOceanRobotSchema } from "./robots/import-digitalocean";
-import { importDropboxRobotSchema } from "./robots/import-dropbox";
-import { importFtpRobotSchema } from "./robots/import-ftp";
-import { importGoogleStorageRobotSchema } from "./robots/import-google";
-import { importHttpRobotSchema } from "./robots/import-http";
-import { uploadHandleRobotSchema } from "./robots/upload-handle";
+import { importAzureRobotSchema } from "./robots/file-importing/import-azure";
+import { importBackblazeRobotSchema } from "./robots/file-importing/import-backblaze";
+import { importRackspaceCloudfilesRobotSchema } from "./robots/file-importing/import-cloudfiles";
+import { importDigitalOceanRobotSchema } from "./robots/file-importing/import-digitalocean";
+import { importDropboxRobotSchema } from "./robots/file-importing/import-dropbox";
+import { importFtpRobotSchema } from "./robots/file-importing/import-ftp";
+import { importGoogleStorageRobotSchema } from "./robots/file-importing/import-google";
+import { importHttpRobotSchema } from "./robots/file-importing/import-http";
+import { importMinioRobotSchema } from "./robots/file-importing/import-minio";
+import { importAmazonS3RobotSchema } from "./robots/file-importing/import-s3";
+import { importSftpRobotSchema } from "./robots/file-importing/import-sftp";
+import { uploadHandleRobotSchema } from "./robots/handling-uploads/upload-handle";
 
 export const assemblySchema = z.object({
   steps: z
@@ -22,6 +25,9 @@ export const assemblySchema = z.object({
         importGoogleStorageRobotSchema,
         importHttpRobotSchema,
         importRackspaceCloudfilesRobotSchema,
+        importMinioRobotSchema,
+        importAmazonS3RobotSchema,
+        importSftpRobotSchema,
       ])
     )
     .refine(
@@ -71,6 +77,8 @@ export const assemblySchema = z.object({
         const stepNames = Object.keys(val);
 
         return steps.every((step) => {
+          if (!step?.use) return true;
+
           if (typeof step?.use === "string") return stepNames.includes(step.use);
 
           if (Array.isArray(step?.use)) {
