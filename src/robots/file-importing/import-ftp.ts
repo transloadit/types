@@ -1,6 +1,6 @@
 import * as z from "zod";
-import { credentialsSchema } from "./shared/credentials";
-import { ignoreErrorsSchema } from "./shared/ignore-errors";
+import { credentialsSchema } from "../shared/credentials";
+import { ignoreErrorsSchema } from "../shared/ignore-errors";
 
 export const importFtpRobotSchema = z.object({
   robot: z.literal("/ftp/import"),

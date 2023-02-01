@@ -1,8 +1,8 @@
 import * as z from "zod";
-import { credentialsSchema } from "./shared/credentials";
-import { ignoreErrorsSchema } from "./shared/ignore-errors";
-import { files_per_page, next_page_token, recursive } from "./shared/pagination";
-import { pathSchema } from "./shared/path";
+import { credentialsSchema } from "../shared/credentials";
+import { ignoreErrorsSchema } from "../shared/ignore-errors";
+import { files_per_page, next_page_token, recursive } from "../shared/pagination";
+import { pathSchema } from "../shared/path";
 
 export const importGoogleStorageRobotSchema = z.object({
   robot: z.literal("/google/import"),

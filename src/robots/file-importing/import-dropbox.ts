@@ -1,7 +1,7 @@
 import * as z from "zod";
-import { credentialsSchema } from "./shared/credentials";
-import { ignoreErrorsSchema } from "./shared/ignore-errors";
-import { pathSchema } from "./shared/path";
+import { credentialsSchema } from "../shared/credentials";
+import { ignoreErrorsSchema } from "../shared/ignore-errors";
+import { pathSchema } from "../shared/path";
 
 export const importDropboxRobotSchema = z.object({
   robot: z.literal("/dropbox/import"),

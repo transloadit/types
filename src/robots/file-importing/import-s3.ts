@@ -1,8 +1,8 @@
 import * as z from "zod";
-import { credentialsSchema } from "./shared/credentials";
-import { ignoreErrorsSchema } from "./shared/ignore-errors";
-import { files_per_page, page_number, recursive } from "./shared/pagination";
-import { pathSchema } from "./shared/path";
+import { credentialsSchema } from "../shared/credentials";
+import { ignoreErrorsSchema } from "../shared/ignore-errors";
+import { files_per_page, page_number, recursive } from "../shared/pagination";
+import { pathSchema } from "../shared/path";
 
 export const importAmazonS3RobotSchema = z.object({
   robot: z.literal("/s3/import"),
