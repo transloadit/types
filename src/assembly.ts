@@ -11,6 +11,8 @@ import { importMinioRobotSchema } from "./robots/file-importing/import-minio";
 import { importAmazonS3RobotSchema } from "./robots/file-importing/import-s3";
 import { importSftpRobotSchema } from "./robots/file-importing/import-sftp";
 import { uploadHandleRobotSchema } from "./robots/handling-uploads/upload-handle";
+import { videoAdaptiveRobotSchema } from "./robots/video-encoding/video-adaptive";
+import { videoConcatRobotSchema } from "./robots/video-encoding/video-concat";
 
 export const assemblySchema = z.object({
   steps: z
@@ -28,6 +30,8 @@ export const assemblySchema = z.object({
         importMinioRobotSchema,
         importAmazonS3RobotSchema,
         importSftpRobotSchema,
+        videoAdaptiveRobotSchema,
+        videoConcatRobotSchema,
       ])
     )
     .refine(
@@ -56,7 +60,7 @@ export const assemblySchema = z.object({
       (val) => {
         const keys = Object.keys(val);
         if (keys.includes(":original")) {
-          return val[":original"]?.use === undefined;
+          if ("use" in val[":original"]) return false;
         }
         return true;
       },
@@ -77,7 +81,7 @@ export const assemblySchema = z.object({
         const stepNames = Object.keys(val);
 
         return steps.every((step) => {
-          if (!step?.use) return true;
+          if (!("use" in step)) return true;
 
           if (typeof step?.use === "string") return stepNames.includes(step.use);
 
