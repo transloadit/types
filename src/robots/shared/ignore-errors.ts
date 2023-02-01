@@ -1,4 +1,4 @@
-import * as z from "zod";
+import { z } from "zod";
 
 export const ignoreErrorsSchema = z.optional(
   z.union([z.boolean(), z.array(z.union([z.literal("meta"), z.literal("import")]))], {

@@ -1,4 +1,4 @@
-import * as z from "zod";
+import { z } from "zod";
 import { importAzureRobotSchema } from "./robots/file-importing/import-azure";
 import { importBackblazeRobotSchema } from "./robots/file-importing/import-backblaze";
 import { importRackspaceCloudfilesRobotSchema } from "./robots/file-importing/import-cloudfiles";

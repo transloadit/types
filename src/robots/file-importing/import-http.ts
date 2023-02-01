@@ -1,4 +1,4 @@
-import * as z from "zod";
+import { z } from "zod";
 import { ignoreErrorsSchema } from "../shared/ignore-errors";
 
 export const importHttpRobotSchema = z.object({

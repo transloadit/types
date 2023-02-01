@@ -1,4 +1,4 @@
-import * as z from "zod";
+import { z } from "zod";
 
 export const recursive = z.boolean().default(false)
   .describe(`Setting this to \`true\` will enable importing files from subdirectories and sub-subdirectories (etc.) of the given path.

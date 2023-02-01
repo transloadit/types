@@ -1,4 +1,4 @@
-import * as z from "zod";
+import { z } from "zod";
 
 export const pathSchema = z.union([z.string(), z.array(z.string())]);
 
