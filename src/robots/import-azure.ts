@@ -5,8 +5,8 @@ import { pathSchema } from "./shared/path";
 import { useSchema } from "./shared/use";
 
 export const importAzureRobotSchema = z.object({
-  name: z.literal("/azure/import"),
-  use: useSchema,
+  robot: z.literal("/azure/import"),
+  use: z.optional(useSchema),
   credentials: credentialsSchema,
   path: pathSchema.describe(
     "The path in your container to the specific file or directory. If the path points to a file, only this file will be imported. If it points to a directory, indicated by a trailing slash (`/`), then all files that are descendants of this directory are recursively imported. If you want to import all files from the root directory, please use `/` as the value here. You can also use an array of path strings here to import multiple paths in the same Robot's Step."

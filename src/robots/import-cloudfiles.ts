@@ -5,8 +5,8 @@ import { pathSchema } from "./shared/path";
 import { useSchema } from "./shared/use";
 
 export const importRackspaceCloudfilesRobotSchema = z.object({
-  name: z.literal("/cloudfiles/import"),
-  use: useSchema,
+  robot: z.literal("/cloudfiles/import"),
+  use: z.optional(useSchema),
   credentials: credentialsSchema.describe(
     'Please create your associated Template Credentials in your Transloadit account and use the name of your Template Credentials as this parameter\'s value. They will contain the values for your Cloud Files Container, User, Key, Account type and Data center. While we recommend to use Template Credentials at all times, some use cases demand dynamic credentials for which using Template Credentials is too unwieldy because of their static nature. If you have this requirement, feel free to use the following parameters instead: `"account_type"` (`"us"` or `"uk"`), `"data_center"` (`"dfw"` for Dallas or `"ord"` for Chicago for example), `"user",` `"key"`, `"container"`.'
   ),

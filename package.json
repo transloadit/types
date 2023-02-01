@@ -9,6 +9,7 @@
   "private": false,
   "type": "module",
   "scripts": {
+    "build": "tsc -b",
     "lint": "npm-run-all --parallel lint:**",
     "lint:formatting": "prettier --check .",
     "lint:js": "eslint .",

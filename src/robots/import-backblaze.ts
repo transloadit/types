@@ -5,8 +5,8 @@ import { pathSchema } from "./shared/path";
 import { useSchema } from "./shared/use";
 
 export const importBackblazeRobotSchema = z.object({
-  name: z.literal("/backblaze/import"),
-  use: useSchema,
+  robot: z.literal("/backblaze/import"),
+  use: z.optional(useSchema),
   credentials: credentialsSchema,
   path: pathSchema.describe(
     "The path in your bucket to the specific file or directory. If the path points to a file, only this file will be imported. If it points to a directory, indicated by a trailing slash (`/`), then all files that are direct descendants of this directory will be imported. Directories are not imported recursively. If you want to import files from subdirectories and sub-subdirectories, enable the recursive parameter. If you want to import all files from the root directory, please use / as the value here. In this case, make sure all your objects belong to a path. If you have objects in the root of your bucket that aren't prefixed with /, you'll receive a 404 `BACKBLAZE_IMPORT_NOT_FOUND` error. You can also use an array of path strings here to import multiple paths in the same Robot's Step."

@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 export const uploadHandleRobotSchema = z.object({
-  name: z.literal("/upload/handle"),
+  robot: z.literal("/upload/handle"),
   output_meta: z.optional(
     z.union([
       z.literal(false, {
