@@ -8,24 +8,33 @@ export const output_meta = z
     }),
     // todo: can we infer the type of input files so we can narrow this?
     z.object({
-      has_transparency: z.optional(z.boolean(), {
-        description:
-          'For images, you can add `"has_transparency": true` in this object to extract if the image contains transparent parts',
-      }),
-      dominant_colors: z.optional(z.boolean(), {
-        description:
-          'For images, you can add `"dominant_colors": true` in this object to extract an array of hexadecimal color codes from the image.',
-      }),
-      colorspace: z.optional(z.boolean(), {
-        description:
-          'For videos, you can add the `"colorspace: true"` parameter to extract the colorspace of the output video.',
-      }),
-      mean_volume: z.optional(z.boolean(), {
-        description:
-          'For audio, you can add `"mean_volume": true` to get a single value representing the mean average volume of the audio file.',
-      }),
+      has_transparency: z
+        .boolean()
+        .describe(
+          'For images, you can add `"has_transparency": true` in this object to extract if the image contains transparent parts'
+        )
+        .optional(),
+      dominant_colors: z
+        .boolean()
+        .describe(
+          'For images, you can add `"dominant_colors": true` in this object to extract an array of hexadecimal color codes from the image.'
+        )
+        .optional(),
+      colorspace: z
+        .boolean()
+        .describe(
+          'For videos, you can add the `"colorspace: true"` parameter to extract the colorspace of the output video.'
+        )
+        .optional(),
+      mean_volume: z
+        .boolean()
+        .describe(
+          'For audio, you can add `"mean_volume": true` to get a single value representing the mean average volume of the audio file.'
+        )
+        .optional(),
     }),
   ])
+  .default({})
   .describe(
     "Allows you to specify a set of metadata that is more expensive on CPU power to calculate, and thus is disabled by default to keep your Assemblies processing fast."
   )

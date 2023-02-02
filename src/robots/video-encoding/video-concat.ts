@@ -28,3 +28,19 @@ Please note this parameter is independent of adding video fades between sections
 export const videoConcatRobotSchema = base.and(ffmpeg_stack)
 
 export type VideoConcatRobot = z.infer<typeof videoConcatRobotSchema>
+
+// const robot: VideoConcatRobot = {
+//   robot: "/video/concat",
+//   use: ":original",
+//   ffmpeg_stack: "v3.3.3",
+// todo: figure out VSCode autocompletion behavior here
+// toggling autocompletion with an empty value `preset: ` gives correctly narrowed options for the current ffmpeg_stack
+// while toggling autocompletion with an empty string value `preset: ''` gives all possible presets as options, disregarding the stack
+//   preset: "hls-1080p",
+//   ffmpeg: {
+//     "-c:v": "libx264",
+//     input_options: {
+//       "-safe": "0",
+//     },
+//   },
+// }
