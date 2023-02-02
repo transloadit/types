@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { credentialsSchema } from "../shared/credentials";
-import { ignoreErrorsSchema } from "../shared/ignore-errors";
-import { files_per_page, next_page_token, recursive } from "../shared/pagination";
-import { pathSchema } from "../shared/path";
+import { z } from "zod"
+import { credentialsSchema } from "../shared/credentials"
+import { ignoreErrorsSchema } from "../shared/ignore-errors"
+import { files_per_page, next_page_token, recursive } from "../shared/pagination"
+import { pathSchema } from "../shared/path"
 
 export const importGoogleStorageRobotSchema = z.object({
   robot: z.literal("/google/import"),
@@ -32,6 +32,6 @@ You can also use an array of path strings here to import multiple paths in the s
   next_page_token: z.optional(next_page_token),
   files_per_page: z.optional(files_per_page),
   ignore_errors: ignoreErrorsSchema,
-});
+})
 
-export type ImportGoogleStorageRobot = z.infer<typeof importGoogleStorageRobotSchema>;
+export type ImportGoogleStorageRobot = z.infer<typeof importGoogleStorageRobotSchema>

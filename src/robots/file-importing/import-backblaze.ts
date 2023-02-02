@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { credentialsSchema } from "../shared/credentials";
-import { ignoreErrorsSchema } from "../shared/ignore-errors";
-import { files_per_page, recursive, start_file_name } from "../shared/pagination";
-import { pathSchema } from "../shared/path";
+import { z } from "zod"
+import { credentialsSchema } from "../shared/credentials"
+import { ignoreErrorsSchema } from "../shared/ignore-errors"
+import { files_per_page, recursive, start_file_name } from "../shared/pagination"
+import { pathSchema } from "../shared/path"
 
 export const importBackblazeRobotSchema = z.object({
   robot: z.literal("/backblaze/import"),
@@ -18,6 +18,6 @@ export const importBackblazeRobotSchema = z.object({
   start_file_name: z.optional(start_file_name),
   files_per_page: z.optional(files_per_page),
   ignore_errors: ignoreErrorsSchema,
-});
+})
 
-export type ImportBackblazeRobot = z.infer<typeof importBackblazeRobotSchema>;
+export type ImportBackblazeRobot = z.infer<typeof importBackblazeRobotSchema>

@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { credentialsSchema } from "../shared/credentials";
-import { ignoreErrorsSchema } from "../shared/ignore-errors";
+import { z } from "zod"
+import { credentialsSchema } from "../shared/credentials"
+import { ignoreErrorsSchema } from "../shared/ignore-errors"
 
 export const importFtpRobotSchema = z.object({
   robot: z.literal("/ftp/import"),
@@ -22,6 +22,6 @@ export const importFtpRobotSchema = z.object({
     z.boolean({ description: "Whether to use passive mode for the FTP connection." }).default(true)
   ),
   ignore_errors: ignoreErrorsSchema,
-});
+})
 
-export type ImportFtpRobot = z.infer<typeof importFtpRobotSchema>;
+export type ImportFtpRobot = z.infer<typeof importFtpRobotSchema>

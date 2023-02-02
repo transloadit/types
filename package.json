@@ -13,7 +13,8 @@
     "lint": "npm-run-all --parallel lint:**",
     "lint:formatting": "prettier --check .",
     "lint:js": "eslint .",
-    "lint:ts": "tsc --noEmit"
+    "lint:ts": "tsc --noEmit",
+    "format": "prettier --write ."
   },
   "dependencies": {},
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"
 
 export const output_meta = z
   .union([
@@ -28,4 +28,4 @@ export const output_meta = z
   ])
   .describe(
     "Allows you to specify a set of metadata that is more expensive on CPU power to calculate, and thus is disabled by default to keep your Assemblies processing fast."
-  );
+  )

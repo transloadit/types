@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { ignoreErrorsSchema } from "../shared/ignore-errors";
+import { z } from "zod"
+import { ignoreErrorsSchema } from "../shared/ignore-errors"
 
 export const importHttpRobotSchema = z.object({
   robot: z.literal("/http/import"),
@@ -35,6 +35,6 @@ export const importHttpRobotSchema = z.object({
       "Setting this to `\"meta\"` will still import the file on metadata extraction errors. `ignore_errors` is similar, it also ignores the error and makes sure the Robot doesn't stop, but it doesn't import the file."
     ),
   ignore_errors: ignoreErrorsSchema,
-});
+})
 
-export type ImportHttpRobot = z.infer<typeof importHttpRobotSchema>;
+export type ImportHttpRobot = z.infer<typeof importHttpRobotSchema>

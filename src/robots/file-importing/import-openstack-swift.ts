@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { credentialsSchema } from "../shared/credentials";
-import { ignoreErrorsSchema } from "../shared/ignore-errors";
-import { files_per_page, page_number, recursive } from "../shared/pagination";
-import { pathSchema } from "../shared/path";
+import { z } from "zod"
+import { credentialsSchema } from "../shared/credentials"
+import { ignoreErrorsSchema } from "../shared/ignore-errors"
+import { files_per_page, page_number, recursive } from "../shared/pagination"
+import { pathSchema } from "../shared/path"
 
 export const importOpenstackSwiftRobotSchema = z.object({
   robot: z.literal("/swift/import"),
@@ -23,6 +23,6 @@ You can also use an array of path strings here to import multiple paths in the s
   page_number: z.optional(page_number),
   files_per_page: z.optional(files_per_page),
   ignore_errors: ignoreErrorsSchema,
-});
+})
 
-export type ImportOpenstackSwiftRobot = z.infer<typeof importOpenstackSwiftRobotSchema>;
+export type ImportOpenstackSwiftRobot = z.infer<typeof importOpenstackSwiftRobotSchema>

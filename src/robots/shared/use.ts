@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"
 
 const step = z.union([
   z.string(),
@@ -13,7 +13,7 @@ const step = z.union([
         "Sometimes the ordering is important, for instance, with our concat Robots. In these cases, you can add an index that starts at 1. You can also optionally filter by the multipart field name.",
     }),
   }),
-]);
+])
 
 const advancedUseSchema = z.object(
   {
@@ -33,10 +33,10 @@ const advancedUseSchema = z.object(
       .default(true),
   },
   { description: "Advanced use cases for the `use` parameter" }
-);
+)
 
 export const useSchema = z.union([z.string(), z.array(z.string()), advancedUseSchema], {
   description: "Specify which steps to use as input",
-});
+})
 
-export type Use = z.infer<typeof useSchema>;
+export type Use = z.infer<typeof useSchema>

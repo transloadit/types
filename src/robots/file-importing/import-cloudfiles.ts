@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { credentialsSchema } from "../shared/credentials";
-import { ignoreErrorsSchema } from "../shared/ignore-errors";
-import { files_per_page, page_number, recursive } from "../shared/pagination";
-import { pathSchema } from "../shared/path";
+import { z } from "zod"
+import { credentialsSchema } from "../shared/credentials"
+import { ignoreErrorsSchema } from "../shared/ignore-errors"
+import { files_per_page, page_number, recursive } from "../shared/pagination"
+import { pathSchema } from "../shared/path"
 
 export const importRackspaceCloudfilesRobotSchema = z.object({
   robot: z.literal("/cloudfiles/import"),
@@ -16,6 +16,6 @@ export const importRackspaceCloudfilesRobotSchema = z.object({
   page_number: z.optional(page_number),
   files_per_page: z.optional(files_per_page),
   ignore_errors: ignoreErrorsSchema,
-});
+})
 
-export type ImportRackspaceCloudfilesRobot = z.infer<typeof importRackspaceCloudfilesRobotSchema>;
+export type ImportRackspaceCloudfilesRobot = z.infer<typeof importRackspaceCloudfilesRobotSchema>

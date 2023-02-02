@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { credentialsSchema } from "../shared/credentials";
-import { ignoreErrorsSchema } from "../shared/ignore-errors";
-import { files_per_page, next_page_token, recursive } from "../shared/pagination";
-import { pathSchema } from "../shared/path";
+import { z } from "zod"
+import { credentialsSchema } from "../shared/credentials"
+import { ignoreErrorsSchema } from "../shared/ignore-errors"
+import { files_per_page, next_page_token, recursive } from "../shared/pagination"
+import { pathSchema } from "../shared/path"
 
 export const importAzureRobotSchema = z.object({
   robot: z.literal("/azure/import"),
@@ -18,6 +18,6 @@ export const importAzureRobotSchema = z.object({
   next_page_token: z.optional(next_page_token),
   files_per_page: z.optional(files_per_page),
   ignore_errors: ignoreErrorsSchema,
-});
+})
 
-export type ImportAzureRobot = z.infer<typeof importAzureRobotSchema>;
+export type ImportAzureRobot = z.infer<typeof importAzureRobotSchema>

@@ -1,6 +1,6 @@
-import * as z from "zod";
-import { ffmpeg_stack } from "../shared/ffmpeg-presets";
-import { useSchema } from "../shared/use";
+import * as z from "zod"
+import { ffmpeg_stack } from "../shared/ffmpeg-presets"
+import { useSchema } from "../shared/use"
 
 export const videoAdaptiveRobotSchema = z.object({
   robot: z.literal("/video/adaptive"),
@@ -38,4 +38,8 @@ export const videoAdaptiveRobotSchema = z.object({
       
 The current recommendation is to use \`"v4.3.1"\`. Other valid values can be found [here](https://transloadit.com/docs/transcoding/video-encoding/video-presets/).`)
   ),
-});
+})
+
+const dash = z.object({
+  technique: z.literal("dash"),
+})

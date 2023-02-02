@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { credentialsSchema } from "../shared/credentials";
-import { ignoreErrorsSchema } from "../shared/ignore-errors";
-import { files_per_page, page_number, recursive } from "../shared/pagination";
-import { pathSchema } from "../shared/path";
+import { z } from "zod"
+import { credentialsSchema } from "../shared/credentials"
+import { ignoreErrorsSchema } from "../shared/ignore-errors"
+import { files_per_page, page_number, recursive } from "../shared/pagination"
+import { pathSchema } from "../shared/path"
 
 export const importDigitalOceanRobotSchema = z.object({
   robot: z.literal("/digitalocean/import"),
@@ -16,6 +16,6 @@ export const importDigitalOceanRobotSchema = z.object({
   page_number: z.optional(page_number),
   files_per_page: z.optional(files_per_page),
   ignore_errors: ignoreErrorsSchema,
-});
+})
 
-export type ImportDigitalOceanRobot = z.infer<typeof importDigitalOceanRobotSchema>;
+export type ImportDigitalOceanRobot = z.infer<typeof importDigitalOceanRobotSchema>
