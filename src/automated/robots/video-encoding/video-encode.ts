@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { z } from "zod"
 import { useSchema } from "../shared/use"
 import { ffmpegStackSchema } from "../shared/ffmpeg_stack"

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { z } from "zod"
 import { useSchema } from "../shared/use"
 import { imagemagickStackSchema } from "../shared/imagemagick_stack"
