@@ -63,72 +63,96 @@ import { wasabiStoreRobotSchema } from "./robots/file-exporting/wasabi-store"
 import { youtubeStoreRobotSchema } from "./robots/file-exporting/youtube-store"
 
 export const assemblySchema = z.object({
+  template_id: z.string().optional(),
   steps: z
     .record(
-      z.union([
-        audioArtworkRobotSchema,
-        audioConcatRobotSchema,
-        audioEncodeRobotSchema,
-        audioLoopRobotSchema,
-        audioMergeRobotSchema,
-        audioWaveformRobotSchema,
-        azureImportRobotSchema,
-        azureStoreRobotSchema,
-        backblazeImportRobotSchema,
-        backblazeStoreRobotSchema,
-        cloudfilesImportRobotSchema,
-        cloudfilesStoreRobotSchema,
-        digitaloceanImportRobotSchema,
-        digitaloceanStoreRobotSchema,
-        documentConvertRobotSchema,
-        documentThumbsRobotSchema,
-        dropboxImportRobotSchema,
-        dropboxStoreRobotSchema,
-        fileCompressRobotSchema,
-        fileDecompressRobotSchema,
-        fileFilterRobotSchema,
-        fileHashRobotSchema,
-        fileServeRobotSchema,
-        fileVirusscanRobotSchema,
-        ftpImportRobotSchema,
-        ftpStoreRobotSchema,
-        googleImportRobotSchema,
-        googleStoreRobotSchema,
-        htmlConvertRobotSchema,
-        httpImportRobotSchema,
-        imageDescribeRobotSchema,
-        imageFacedetectRobotSchema,
-        imageMergeRobotSchema,
-        imageOcrRobotSchema,
-        imageOptimizeRobotSchema,
-        imageResizeRobotSchema,
-        mediaPlaylistRobotSchema,
-        metaWriteRobotSchema,
-        minioImportRobotSchema,
-        minioStoreRobotSchema,
-        s3ImportRobotSchema,
-        s3StoreRobotSchema,
-        scriptRunRobotSchema,
-        sftpImportRobotSchema,
-        sftpStoreRobotSchema,
-        speechTranscribeRobotSchema,
-        swiftImportRobotSchema,
-        swiftStoreRobotSchema,
-        textSpeakRobotSchema,
-        textTranslateRobotSchema,
-        uploadHandleRobotSchema,
-        videoAdaptiveRobotSchema,
-        videoConcatRobotSchema,
-        videoEncodeRobotSchema,
-        videoMergeRobotSchema,
-        videoSubtitleRobotSchema,
-        videoThumbsRobotSchema,
-        vimeoStoreRobotSchema,
-        wasabiImportRobotSchema,
-        wasabiStoreRobotSchema,
-        youtubeStoreRobotSchema,
-      ])
+      z
+        .union([
+          audioArtworkRobotSchema,
+          audioConcatRobotSchema,
+          audioEncodeRobotSchema,
+          audioLoopRobotSchema,
+          audioMergeRobotSchema,
+          audioWaveformRobotSchema,
+          azureImportRobotSchema,
+          azureStoreRobotSchema,
+          backblazeImportRobotSchema,
+          backblazeStoreRobotSchema,
+          cloudfilesImportRobotSchema,
+          cloudfilesStoreRobotSchema,
+          digitaloceanImportRobotSchema,
+          digitaloceanStoreRobotSchema,
+          documentConvertRobotSchema,
+          documentThumbsRobotSchema,
+          dropboxImportRobotSchema,
+          dropboxStoreRobotSchema,
+          fileCompressRobotSchema,
+          fileDecompressRobotSchema,
+          fileFilterRobotSchema,
+          fileHashRobotSchema,
+          fileServeRobotSchema,
+          fileVirusscanRobotSchema,
+          ftpImportRobotSchema,
+          ftpStoreRobotSchema,
+          googleImportRobotSchema,
+          googleStoreRobotSchema,
+          htmlConvertRobotSchema,
+          httpImportRobotSchema,
+          imageDescribeRobotSchema,
+          imageFacedetectRobotSchema,
+          imageMergeRobotSchema,
+          imageOcrRobotSchema,
+          imageOptimizeRobotSchema,
+          imageResizeRobotSchema,
+          mediaPlaylistRobotSchema,
+          metaWriteRobotSchema,
+          minioImportRobotSchema,
+          minioStoreRobotSchema,
+          s3ImportRobotSchema,
+          s3StoreRobotSchema,
+          scriptRunRobotSchema,
+          sftpImportRobotSchema,
+          sftpStoreRobotSchema,
+          speechTranscribeRobotSchema,
+          swiftImportRobotSchema,
+          swiftStoreRobotSchema,
+          textSpeakRobotSchema,
+          textTranslateRobotSchema,
+          uploadHandleRobotSchema,
+          videoAdaptiveRobotSchema,
+          videoConcatRobotSchema,
+          videoEncodeRobotSchema,
+          videoMergeRobotSchema,
+          videoSubtitleRobotSchema,
+          videoThumbsRobotSchema,
+          vimeoStoreRobotSchema,
+          wasabiImportRobotSchema,
+          wasabiStoreRobotSchema,
+          youtubeStoreRobotSchema,
+        ])
+        .and(
+          z.object({
+            // todo: move to robot?
+            result: z.boolean().optional()
+              .describe(`Controls whether the results of this Step should be present in the Assembly Status JSON.
+
+If set to true, the result of this Step will be present. If files from that Step weren't exported to your storage, their location will be set to a temporary URL.
+
+By default, we set this to true for leaf Steps and false for any intermediate Step.
+
+Explicitly setting it to false can be a useful tool in keeping the Assembly Status JSON small.
+
+Setting result: true on storage Steps does not add those Steps to the Assembly JSON, but only changes the returned URL values for the results of any transcoding Steps passed into those storage Steps. If you pipe a transcoding Step into multiple storage Steps (for example /s3/store) with each having result: true, then multiple results for this transcoding Step will be added to the Assembly JSON, giving you a quick overview of all file URLs for the various S3 buckets (in this example).`),
+            force_accept: z.boolean().default(false).optional()
+              .describe(`Force a Robot to accept a file type it would have ignored.
+
+By default Robots ignore files they are not familiar with. 🤖/video/encode, for example, will happily ignore and refuse to emit images.
+
+With the force_accept parameter set to true you can force Robots to accept all files thrown at them. This will typically lead to errors and should only be used for debugging or combatting edge cases.`),
+          })
+        )
     )
+    .optional()
     .refine(
       (val) => {
         const keys = Object.keys(val)
