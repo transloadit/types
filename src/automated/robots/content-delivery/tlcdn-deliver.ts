@@ -4,6 +4,6 @@ import { z } from "zod"
 
 export const tlcdn_deliver_robot_schema = z
   .object({ robot: z.literal("/tlcdn/deliver") })
-  .describe("undefined")
+  .describe(`caches and delivers files globally`)
 
 export type TlcdnDeliverRobot = z.infer<typeof tlcdn_deliver_robot_schema>

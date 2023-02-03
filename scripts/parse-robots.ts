@@ -10,12 +10,24 @@ const inherits_file = "../content/_data/robot_inherits.yml"
 const output_dir = "./src/automated/robots/"
 
 const { parameters } = yaml.load(await fs.readFile(inherits_file, "utf-8")) as {
-  [key: string]: any
+  [key: string]: unknown
 }
 
 const inherits: Record<string, string> = {}
-for (const [name, value] of Object.entries(parameters)) {
-  inherits[name] = parse_parameter(name, value).replace(`"${name}": `, "")
+
+if (is_obj(parameters)) {
+  for (const [name, value] of Object.entries(parameters)) {
+    inherits[name] = parse_parameter(name, value).replace(`"${name}": `, "")
+
+    await fs.mkdir(path.join(output_dir, "shared"), { recursive: true })
+    await fs.writeFile(
+      path.join(output_dir, "shared/", name + ".ts"),
+      format(`import { z } from 'zod';
+
+export const ${name}_schema = ${inherits[name]}`),
+      "utf-8"
+    )
+  }
 }
 
 for (const category of await fs.readdir(robots_dir)) {
@@ -36,13 +48,14 @@ async function processRobot(file_contents: string) {
   const name = data.slug.replace(/-/g, "_") + "_robot_schema"
 
   const robot = `import { z } from 'zod';
+${add_imports(data.parameters)}
 
 // 🤖${data.rname}
 
 export const ${name} = ${zobj(
     `robot: ${zlit(JSON.stringify(data.rname))}`,
     ...parse_parameters(data.parameters)
-  )}.describe("${data.purpose}")
+  )}${zdesc(data.purpose ?? data.purpose_sentence)}
   
 export type ${data.slug.split(/-/g).map(capitalize).join("")}Robot = z.infer<typeof ${name}>
 `
@@ -50,19 +63,30 @@ export type ${data.slug.split(/-/g).map(capitalize).join("")}Robot = z.infer<typ
   await fs.mkdir(path.join(output_dir, data.service_slug), { recursive: true })
   await fs.writeFile(
     path.join(output_dir, data.service_slug, data.slug + ".ts"),
-    prettier.format(robot, { parser: "typescript", semi: false, printWidth: 100 }),
+    format(robot),
     "utf-8"
   )
 }
 
-function parse_parameters(params: any): string[] {
+function add_imports(params: Record<string, unknown>) {
+  if (!is_obj(params)) return ""
+  if (!("_inherits" in params)) return ""
+  if (!Array.isArray(params._inherits)) return ""
+
+  return params._inherits
+    .map((x: string) => `import { ${x}_schema } from '../shared/${x}'`)
+    .join("\n")
+}
+
+function parse_parameters(params: unknown): string[] {
   const result: string[] = []
 
   if (!params) return result
 
   for (const [name, value] of Object.entries(params)) {
+    // ignore inherits
     if (name === "_inherits" && Array.isArray(value)) {
-      value.forEach((x) => result.push(`"${x}": ${inherits[x]}`))
+      value.forEach((x) => result.push(`"${x}": ${x}_schema`))
       continue
     }
 
@@ -72,7 +96,9 @@ function parse_parameters(params: any): string[] {
   return result
 }
 
-function parse_parameter(name: string, value: any) {
+function parse_parameter(name: string, value: unknown) {
+  if (!is_obj(value)) return ""
+
   try {
     return `"${name}": ${[
       parse_type(value),
@@ -86,7 +112,7 @@ function parse_parameter(name: string, value: any) {
   }
 }
 
-function parse_default(value: Record<string, any>) {
+function parse_default(value: Record<string, unknown>) {
   if (value.default) {
     switch (typeof value.default) {
       case "string": {
@@ -128,24 +154,39 @@ function parse_markdown(str: string) {
   )
 }
 
-function parse_description(value: Record<string, any>) {
-  if (value.description) {
-    return zdesc(parse_markdown(value.description))
-  }
-
-  return ""
+function parse_description(value: Record<string, unknown>) {
+  if (!value.description) return ""
+  if (typeof value.description !== "string") return ""
+  return zdesc(parse_markdown(value.description))
 }
 
-function parse_required(value: Record<string, any>) {
+function parse_required(value: Record<string, unknown>) {
   if (value.required) return ""
   return ".optional()"
 }
 
-function parse_type(value: string | Record<string, any>): string {
-  const t = typeof value === "string" ? value.trim() : value.type.trim()
+function parse_type(value: Record<string, unknown>): string {
+  const t = typeof value.type === "string" ? value.type.trim() : ""
+
   assert(t, `No type provided: ${JSON.stringify(value)}`)
 
   switch (true) {
+    case t === "Array of Arrays / String": {
+      // very specific case
+      return zarr(zarr(zstr()))
+    }
+    case t.includes("/"): {
+      // multiple types
+      return zunion(...t.split("/").map((str) => parse_type({ ...value, type: str })))
+    }
+    case t.startsWith("Array of"): {
+      return zarr(
+        parse_type({
+          ...value,
+          type: t.replace("Array of", "").trim(),
+        })
+      )
+    }
     case typeof value !== "string" && "suggested_values" in value: {
       const options = (value as Record<string, string | number | boolean[]>).suggested_values as (
         | string
@@ -188,15 +229,6 @@ function parse_type(value: string | Record<string, any>): string {
     case t.startsWith("String("): {
       // String with a default value, just return string
       return zstr()
-    }
-    case t === "Array of Arrays / String": {
-      // very specific case
-      return zarr(zarr(zstr()))
-    }
-    case t.includes("/"): // multiple types
-      return zunion(...t.split("/").map(parse_type))
-    case t.startsWith("Array of"): {
-      return zarr(parse_type(t.replace("Array of", "").trim()))
     }
     case t === "Object" || t === "Objects":
       // return zrecord for now until we can get a more accurate type
@@ -262,10 +294,20 @@ function zstr() {
   return "z.string()"
 }
 
-function zlit(str: string) {
-  return `z.literal(${str})`
+function zlit(val: string | number | boolean) {
+  return `z.literal(${val})`
 }
 
 function zobj(...str: string[]) {
   return `z.object({${str.join(", ")}})`
+}
+
+function format(str: string) {
+  return prettier.format(str, { parser: "typescript", semi: false, printWidth: 100 })
+}
+
+function is_obj(obj: unknown): obj is Record<string, unknown> {
+  return (
+    obj !== null && typeof obj === "object" && Object.keys(obj).every((k) => typeof k === "string")
+  )
 }
