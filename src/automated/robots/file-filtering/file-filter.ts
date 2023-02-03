@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/file/filter
 
-export const file_filter_robot_schema = z
+export const fileFilterRobotSchema = z
   .object({
     robot: z.literal("/file/filter"),
     accepts: z.array(z.array(z.string())).default([]).optional()
@@ -37,8 +37,8 @@ will be stopped and marked with an error.
       .describe(`The error message shown to your users (such as by Uppy) when a
 file is declined and \`error_on_decline\` is set to \`true\`.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`directs files to different encoding Steps based on your conditions`)
 
-export type FileFilterRobot = z.infer<typeof file_filter_robot_schema>
+export type FileFilterRobot = z.infer<typeof fileFilterRobotSchema>

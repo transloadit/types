@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const robot_schema = z.string()
+export const robotSchema = z.string()
   .describe(`Specifies which <dfn>Robot</dfn> should process files passed to this <dfn>Step</dfn>.
 
 There are [{{collections.robots.size}} Robots](https://transloadit.com/docs/transcoding/), each with their own parameters, such

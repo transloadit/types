@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/image/facedetect
 
-export const image_facedetect_robot_schema = z
+export const imageFacedetectRobotSchema = z
   .object({
     robot: z.literal("/image/facedetect"),
     crop: z.boolean().default(false).optional()
@@ -89,10 +89,10 @@ the input image is:
 
 ![]({{site.asset_cdn}}/assets/images/abbas-malek-hosseini-22NnY93qaOk-face-0.jpg)
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(
     `detects faces in images and returns their coordinates, or cuts them from the original images and returns those as new images`
   )
 
-export type ImageFacedetectRobot = z.infer<typeof image_facedetect_robot_schema>
+export type ImageFacedetectRobot = z.infer<typeof imageFacedetectRobotSchema>

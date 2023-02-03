@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/cloudfiles/store
 
-export const cloudfiles_store_robot_schema = z
+export const cloudfilesStoreRobotSchema = z
   .object({
     robot: z.literal("/cloudfiles/store"),
     credentials: z.string()
@@ -24,8 +24,8 @@ parameters instead: \`"account_type"\` ("us" or "uk"), \`"data_center"\`
     path: z.string().default("${file.id}_${file.url_name}").optional()
       .describe(`The path at which to store the file. This value can also contain [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables).
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to Rackspace Cloud Files`)
 
-export type CloudfilesStoreRobot = z.infer<typeof cloudfiles_store_robot_schema>
+export type CloudfilesStoreRobot = z.infer<typeof cloudfilesStoreRobotSchema>

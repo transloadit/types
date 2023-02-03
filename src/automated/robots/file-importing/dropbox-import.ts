@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/dropbox/import
 
-export const dropbox_import_robot_schema = z
+export const dropboxImportRobotSchema = z
   .object({
     robot: z.literal("/dropbox/import"),
     credentials: z.string()
@@ -50,8 +50,8 @@ not cease to function on any import errors either.
 To keep backwards compatibility, setting this parameter to \`true\` will set
 it to \`["meta", "import"]\` internally.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`imports whole directories of files from your Dropbox`)
 
-export type DropboxImportRobot = z.infer<typeof dropbox_import_robot_schema>
+export type DropboxImportRobot = z.infer<typeof dropboxImportRobotSchema>

@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/minio/store
 
-export const minio_store_robot_schema = z
+export const minioStoreRobotSchema = z
   .object({
     robot: z.literal("/minio/store"),
     credentials: z.string()
@@ -43,8 +43,8 @@ the URL expiry time in seconds.
 
 If this parameter is not used, no URL signing is done.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to MinIO buckets`)
 
-export type MinioStoreRobot = z.infer<typeof minio_store_robot_schema>
+export type MinioStoreRobot = z.infer<typeof minioStoreRobotSchema>

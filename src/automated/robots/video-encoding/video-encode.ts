@@ -1,11 +1,11 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
-import { ffmpeg_stack_schema } from "../shared/ffmpeg_stack"
-import { output_meta_schema } from "../shared/output_meta"
+import { useSchema } from "../shared/use"
+import { ffmpegStackSchema } from "../shared/ffmpeg_stack"
+import { outputMetaSchema } from "../shared/output_meta"
 
 // 🤖/video/encode
 
-export const video_encode_robot_schema = z
+export const videoEncodeRobotSchema = z
   .object({
     robot: z.literal("/video/encode"),
     preset: z.string().default("flash").optional()
@@ -261,10 +261,10 @@ see the related \`segment_name\` parameter.
 \`\${segment_prefix}\`, \`\${segment_number}\` and \`\${segment_id}\` (which is a
 UUIDv4 without dashes).
 `),
-    use: use_schema,
-    ffmpeg_stack: ffmpeg_stack_schema,
-    output_meta: output_meta_schema,
+    use: useSchema,
+    ffmpeg_stack: ffmpegStackSchema,
+    output_meta: outputMetaSchema,
   })
   .describe(`encodes, resizes, applies watermarks to videos and animated GIFs`)
 
-export type VideoEncodeRobot = z.infer<typeof video_encode_robot_schema>
+export type VideoEncodeRobot = z.infer<typeof videoEncodeRobotSchema>

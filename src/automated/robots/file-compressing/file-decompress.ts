@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/file/decompress
 
-export const file_decompress_robot_schema = z
+export const fileDecompressRobotSchema = z
   .object({
     robot: z.literal("/file/decompress"),
     ignore_errors: z
@@ -20,10 +20,10 @@ happens.
 To keep backwards compatibility, setting this parameter to \`true\` will set
 it to \`["meta"]\` internally.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(
     `extracts entire archives of files to be consumed by other Robots or exported as individual files`
   )
 
-export type FileDecompressRobot = z.infer<typeof file_decompress_robot_schema>
+export type FileDecompressRobot = z.infer<typeof fileDecompressRobotSchema>

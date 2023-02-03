@@ -1,10 +1,10 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
-import { output_meta_schema } from "../shared/output_meta"
+import { useSchema } from "../shared/use"
+import { outputMetaSchema } from "../shared/output_meta"
 
 // 🤖/audio/waveform
 
-export const audio_waveform_robot_schema = z
+export const audioWaveformRobotSchema = z
   .object({
     robot: z.literal("/audio/waveform"),
     format: z.enum(["image", "json"]).default("image").optional()
@@ -29,11 +29,11 @@ green, blue, alpha), if the format \`"image"\` was selected.
       .describe(`The color used in the outer parts of the gradient. The format is
 "rrggbbaa" (red, green, blue, alpha).
 `),
-    use: use_schema,
-    output_meta: output_meta_schema,
+    use: useSchema,
+    output_meta: outputMetaSchema,
   })
   .describe(
     `generates waveform images for your audio files and allows you to change their colors and dimensions`
   )
 
-export type AudioWaveformRobot = z.infer<typeof audio_waveform_robot_schema>
+export type AudioWaveformRobot = z.infer<typeof audioWaveformRobotSchema>

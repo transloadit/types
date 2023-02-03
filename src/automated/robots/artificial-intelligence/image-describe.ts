@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/image/describe
 
-export const image_describe_robot_schema = z
+export const imageDescribeRobotSchema = z
   .object({
     robot: z.literal("/image/describe"),
     provider: z.enum(["aws", "gcp"])
@@ -39,8 +39,8 @@ The possible descriptions depend on the chosen provider. The list of labels
 from AWS can be found [in their documentation](https://docs.aws.amazon.com/rekognition/latest/dg/moderation.html#moderation-api).
 GCP labels the image based on five categories, as described [in their documentation](https://cloud.google.com/vision/docs/detecting-safe-search).
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`recognizes objects in images and returns them as English words`)
 
-export type ImageDescribeRobot = z.infer<typeof image_describe_robot_schema>
+export type ImageDescribeRobot = z.infer<typeof imageDescribeRobotSchema>

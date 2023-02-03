@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/script/run
 
-export const script_run_robot_schema = z
+export const scriptRunRobotSchema = z
   .object({
     robot: z.literal("/script/run"),
     script: z.string().describe(`A string of JavaScript to evaluate. It has access to all JavaScript
@@ -24,8 +24,8 @@ You can check whether evaluating this script was free by inspecting
 \`file.meta.isFree\`. It is recommended to do this during development as to
 not see sudden unexpected costs in production.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`runs scripts in Assemblies`)
 
-export type ScriptRunRobot = z.infer<typeof script_run_robot_schema>
+export type ScriptRunRobot = z.infer<typeof scriptRunRobotSchema>

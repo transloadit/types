@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/document/convert
 
-export const document_convert_robot_schema = z
+export const documentConvertRobotSchema = z
   .object({
     robot: z.literal("/document/convert"),
     format: z.enum([
@@ -115,8 +115,8 @@ To change the formatting of the HTML element, the \`font-size\` must be specifie
   <div style="font-size: 15px; width: 100%; text-align: center;"><span class="pageNumber"></span>"></span></div>
 \`\`\`
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`converts documents into different formats`)
 
-export type DocumentConvertRobot = z.infer<typeof document_convert_robot_schema>
+export type DocumentConvertRobot = z.infer<typeof documentConvertRobotSchema>

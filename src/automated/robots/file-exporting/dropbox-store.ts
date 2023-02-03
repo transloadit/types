@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/dropbox/store
 
-export const dropbox_store_robot_schema = z
+export const dropboxStoreRobotSchema = z
   .object({
     robot: z.literal("/dropbox/store"),
     credentials: z.string()
@@ -27,8 +27,8 @@ parameter instead.
       .describe(`Whether to create a URL to this file for sharing with other people. This
 will overwrite the file's \`"url"\` property.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to Dropbox`)
 
-export type DropboxStoreRobot = z.infer<typeof dropbox_store_robot_schema>
+export type DropboxStoreRobot = z.infer<typeof dropboxStoreRobotSchema>

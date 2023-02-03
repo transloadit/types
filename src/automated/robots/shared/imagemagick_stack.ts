@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const imagemagick_stack_schema = z.string().default("v2.0.7").optional()
+export const imagemagickStackSchema = z.string().default("v2.0.7").optional()
   .describe(`Selects the ImageMagick stack version to use for encoding.
 These versions do not reflect any real
 ImageMagick versions, they reflect our own internal (non-semantic)

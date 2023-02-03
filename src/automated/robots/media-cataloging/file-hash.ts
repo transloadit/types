@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/file/hash
 
-export const file_hash_robot_schema = z
+export const fileHashRobotSchema = z
   .object({
     robot: z.literal("/file/hash"),
     algorithm: z.enum(["b2", "md5", "sha1", "sha224", "sha256", "sha384", "sha512"]).optional()
@@ -12,8 +12,8 @@ export const file_hash_robot_schema = z
 
 The file hash is exported as \`file.meta.hash\`.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`hashes files in Assemblies`)
 
-export type FileHashRobot = z.infer<typeof file_hash_robot_schema>
+export type FileHashRobot = z.infer<typeof fileHashRobotSchema>

@@ -1,11 +1,11 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
-import { ffmpeg_stack_schema } from "../shared/ffmpeg_stack"
-import { output_meta_schema } from "../shared/output_meta"
+import { useSchema } from "../shared/use"
+import { ffmpegStackSchema } from "../shared/ffmpeg_stack"
+import { outputMetaSchema } from "../shared/output_meta"
 
 // 🤖/video/merge
 
-export const video_merge_robot_schema = z
+export const videoMergeRobotSchema = z
   .object({
     robot: z.literal("/video/merge"),
     preset: z.string().default("flash").optional()
@@ -81,10 +81,10 @@ seconds and not immediately, then this is the parameter to use.
 [FFmpeg documentation](https://ffmpeg.org/ffmpeg-doc.html). If a preset is
 used, the options specified are merged on top of the ones from the preset.
 `),
-    use: use_schema,
-    ffmpeg_stack: ffmpeg_stack_schema,
-    output_meta: output_meta_schema,
+    use: useSchema,
+    ffmpeg_stack: ffmpegStackSchema,
+    output_meta: outputMetaSchema,
   })
   .describe(`composes a new video by adding an audio track to existing still image(s) or video`)
 
-export type VideoMergeRobot = z.infer<typeof video_merge_robot_schema>
+export type VideoMergeRobot = z.infer<typeof videoMergeRobotSchema>

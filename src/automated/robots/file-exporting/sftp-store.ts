@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/sftp/store
 
-export const sftp_store_robot_schema = z
+export const sftpStoreRobotSchema = z
   .object({
     robot: z.literal("/sftp/store"),
     credentials: z.string()
@@ -38,8 +38,8 @@ accept, such as \`"755"\`. If you don't specify this option, the file's
 permission bits aren't changed at all, meaning it's up to your server's
 configuration (e.g. umask).
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to your own SFTP server`)
 
-export type SftpStoreRobot = z.infer<typeof sftp_store_robot_schema>
+export type SftpStoreRobot = z.infer<typeof sftpStoreRobotSchema>

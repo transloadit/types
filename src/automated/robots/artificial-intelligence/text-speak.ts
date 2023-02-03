@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/text/speak
 
-export const text_speak_robot_schema = z
+export const textSpeakRobotSchema = z
   .object({
     robot: z.literal("/text/speak"),
     provider: z.enum(["aws", "gcp"])
@@ -38,8 +38,8 @@ syntaxes for
 [AWS](https://docs.aws.amazon.com/polly/latest/dg/supportedtags.html) and
 [GCP](https://cloud.google.com/text-to-speech/docs/ssml).
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`synthesizes speech in documents`)
 
-export type TextSpeakRobot = z.infer<typeof text_speak_robot_schema>
+export type TextSpeakRobot = z.infer<typeof textSpeakRobotSchema>

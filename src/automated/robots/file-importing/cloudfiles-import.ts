@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/cloudfiles/import
 
-export const cloudfiles_import_robot_schema = z
+export const cloudfilesImportRobotSchema = z
   .object({
     robot: z.literal("/cloudfiles/import"),
     credentials: z.string()
@@ -71,8 +71,8 @@ not cease to function on any import errors either.
 To keep backwards compatibility, setting this parameter to \`true\` will set
 it to \`["meta", "import"]\` internally.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`imports whole directories of files from your Rackspace Cloud Files container`)
 
-export type CloudfilesImportRobot = z.infer<typeof cloudfiles_import_robot_schema>
+export type CloudfilesImportRobot = z.infer<typeof cloudfilesImportRobotSchema>

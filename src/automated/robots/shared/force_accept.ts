@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const force_accept_schema = z.boolean().default(false).optional()
+export const forceAcceptSchema = z.boolean().default(false).optional()
   .describe(`Force a <dfn>Robot</dfn> to accept a file type it would have ignored.
 
 By default <dfn>Robots</dfn> ignore files they are not familiar with.

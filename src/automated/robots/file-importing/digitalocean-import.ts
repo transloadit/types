@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/digitalocean/import
 
-export const digitalocean_import_robot_schema = z
+export const digitaloceanImportRobotSchema = z
   .object({
     robot: z.literal("/digitalocean/import"),
     credentials: z.string()
@@ -69,8 +69,8 @@ not cease to function on any import errors either.
 To keep backwards compatibility, setting this parameter to \`true\` will set
 it to \`["meta", "import"]\` internally.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`imports whole directories of files from DigitalOcean Spaces`)
 
-export type DigitaloceanImportRobot = z.infer<typeof digitalocean_import_robot_schema>
+export type DigitaloceanImportRobot = z.infer<typeof digitaloceanImportRobotSchema>

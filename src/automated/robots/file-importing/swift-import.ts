@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/swift/import
 
-export const swift_import_robot_schema = z
+export const swiftImportRobotSchema = z
   .object({
     robot: z.literal("/swift/import"),
     credentials: z.string()
@@ -75,8 +75,8 @@ not cease to function on any import errors either.
 To keep backwards compatibility, setting this parameter to \`true\` will set
 it to \`["meta", "import"]\` internally.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`imports whole directories of files from your Openstack/Swift bucket`)
 
-export type SwiftImportRobot = z.infer<typeof swift_import_robot_schema>
+export type SwiftImportRobot = z.infer<typeof swiftImportRobotSchema>

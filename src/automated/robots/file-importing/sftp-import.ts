@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/sftp/import
 
-export const sftp_import_robot_schema = z
+export const sftpImportRobotSchema = z
   .object({
     robot: z.literal("/sftp/import"),
     credentials: z.string()
@@ -40,10 +40,10 @@ it to \`["meta", "import"]\` internally.
 `),
     port: z.number().int().default(22).optional().describe(`The port to use for the connection.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(
     `imports whole libraries of files from your SFTP servers into Transloadit. This Robot relies on public key authentication`
   )
 
-export type SftpImportRobot = z.infer<typeof sftp_import_robot_schema>
+export type SftpImportRobot = z.infer<typeof sftpImportRobotSchema>

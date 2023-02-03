@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const ffmpeg_schema = z.record(z.string()).default({}).optional()
+export const ffmpegSchema = z.record(z.string()).default({}).optional()
   .describe(`<a name="video-encode-ffmpeg-parameters"></a>
 A parameter object to be passed to FFmpeg. For available options, see the
 [FFmpeg documentation](http://ffmpeg.org/ffmpeg-doc.html). If a preset is

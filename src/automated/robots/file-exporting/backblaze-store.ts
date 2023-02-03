@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/backblaze/store
 
-export const backblaze_store_robot_schema = z
+export const backblazeStoreRobotSchema = z
   .object({
     robot: z.literal("/backblaze/store"),
     credentials: z.string()
@@ -47,8 +47,8 @@ a list of available headers.
 
 Object Metadata can be specified using \`X-Bz-Info-*\` headers.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to Backblaze`)
 
-export type BackblazeStoreRobot = z.infer<typeof backblaze_store_robot_schema>
+export type BackblazeStoreRobot = z.infer<typeof backblazeStoreRobotSchema>

@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const use_schema = z.union([z.string(), z.array(z.string()), z.record(z.string())])
+export const useSchema = z.union([z.string(), z.array(z.string()), z.record(z.string())])
   .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)

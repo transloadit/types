@@ -1,11 +1,11 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
-import { imagemagick_stack_schema } from "../shared/imagemagick_stack"
-import { output_meta_schema } from "../shared/output_meta"
+import { useSchema } from "../shared/use"
+import { imagemagickStackSchema } from "../shared/imagemagick_stack"
+import { outputMetaSchema } from "../shared/output_meta"
 
 // 🤖/image/resize
 
-export const image_resize_robot_schema = z
+export const imageResizeRobotSchema = z
   .object({
     robot: z.literal("/image/resize"),
     format: z.enum(["jpg", "png", "gif", "tiff"]).nullable().default(null).optional()
@@ -486,12 +486,12 @@ integer) or removed (negative integer) from the horizontal alignment.
       .describe(`The vertical offset for the text in pixels that is added (positive
 integer) or removed (negative integer) from the vertical alignment.
 `),
-    use: use_schema,
-    imagemagick_stack: imagemagick_stack_schema,
-    output_meta: output_meta_schema,
+    use: useSchema,
+    imagemagick_stack: imagemagickStackSchema,
+    output_meta: outputMetaSchema,
   })
   .describe(
     `resizes, crops, changes colorization, rotation, and applies text and watermarks to images`
   )
 
-export type ImageResizeRobot = z.infer<typeof image_resize_robot_schema>
+export type ImageResizeRobot = z.infer<typeof imageResizeRobotSchema>

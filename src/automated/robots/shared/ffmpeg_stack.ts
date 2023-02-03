@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const ffmpeg_stack_schema = z.string().default("v3.3.3").optional()
+export const ffmpegStackSchema = z.string().default("v3.3.3").optional()
   .describe(`Selects the FFmpeg stack version to use for encoding.
 These versions reflect real FFmpeg versions.
 

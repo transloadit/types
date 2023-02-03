@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/youtube/store
 
-export const youtube_store_robot_schema = z
+export const youtubeStoreRobotSchema = z
   .object({
     robot: z.literal("/youtube/store"),
     credentials: z.string()
@@ -47,8 +47,8 @@ be displayed on YouTube.
       .describe(`Defines the visibility of the uploaded video. This can be \`"public"\`,
 \`"private"\`, or \`"unlisted"\`.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to YouTube`)
 
-export type YoutubeStoreRobot = z.infer<typeof youtube_store_robot_schema>
+export type YoutubeStoreRobot = z.infer<typeof youtubeStoreRobotSchema>

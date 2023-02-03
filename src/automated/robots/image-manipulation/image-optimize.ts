@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/image/optimize
 
-export const image_optimize_robot_schema = z
+export const imageOptimizeRobotSchema = z
   .object({
     robot: z.literal("/image/optimize"),
     priority: z
@@ -35,8 +35,8 @@ make the underlying tool error out and thereby break your
 <dfn>Assemblies</dfn>. This can sometimes result in a larger file size,
 though.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`reduces the size of images while maintaining the same visual quality`)
 
-export type ImageOptimizeRobot = z.infer<typeof image_optimize_robot_schema>
+export type ImageOptimizeRobot = z.infer<typeof imageOptimizeRobotSchema>

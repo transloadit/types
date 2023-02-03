@@ -1,11 +1,11 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
-import { ffmpeg_stack_schema } from "../shared/ffmpeg_stack"
-import { output_meta_schema } from "../shared/output_meta"
+import { useSchema } from "../shared/use"
+import { ffmpegStackSchema } from "../shared/ffmpeg_stack"
+import { outputMetaSchema } from "../shared/output_meta"
 
 // 🤖/audio/concat
 
-export const audio_concat_robot_schema = z
+export const audioConcatRobotSchema = z
   .object({
     robot: z.literal("/audio/concat"),
     preset: z.string().default("mp3").optional()
@@ -44,10 +44,10 @@ options specified are merged on top of the ones from the preset. For
 available options, see the [FFmpeg documentation](https://ffmpeg.org/ffmpeg-doc.html). Options specified here
 take precedence over the preset options.
 `),
-    use: use_schema,
-    ffmpeg_stack: ffmpeg_stack_schema,
-    output_meta: output_meta_schema,
+    use: useSchema,
+    ffmpeg_stack: ffmpegStackSchema,
+    output_meta: outputMetaSchema,
   })
   .describe(`concatenates several audio files together`)
 
-export type AudioConcatRobot = z.infer<typeof audio_concat_robot_schema>
+export type AudioConcatRobot = z.infer<typeof audioConcatRobotSchema>

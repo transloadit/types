@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/wasabi/store
 
-export const wasabi_store_robot_schema = z
+export const wasabiStoreRobotSchema = z
   .object({
     robot: z.literal("/wasabi/store"),
     credentials: z.string()
@@ -41,8 +41,8 @@ these headers [do not support non-ASCII metadata values](https://docs.aws.amazon
 the URL expiry time in seconds. If this parameter is not used, no URL
 signing is done.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to Wasabi buckets`)
 
-export type WasabiStoreRobot = z.infer<typeof wasabi_store_robot_schema>
+export type WasabiStoreRobot = z.infer<typeof wasabiStoreRobotSchema>

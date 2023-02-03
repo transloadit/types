@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/media/playlist
 
-export const media_playlist_robot_schema = z
+export const mediaPlaylistRobotSchema = z
   .object({
     robot: z.literal("/media/playlist"),
     name: z.string().default("playlist.m3u8").optional()
@@ -35,8 +35,8 @@ playlists. Can be different from the (file)\`name\`.
       .describe(`The URL protocol used for all URLs in playlists. Can be \`"http"\` or
 \`"https"\`.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`merges segment files to generate playlist files for HTTP Live Streaming (HLS)`)
 
-export type MediaPlaylistRobot = z.infer<typeof media_playlist_robot_schema>
+export type MediaPlaylistRobot = z.infer<typeof mediaPlaylistRobotSchema>

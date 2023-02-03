@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/html/convert
 
-export const html_convert_robot_schema = z
+export const htmlConvertRobotSchema = z
   .object({
     robot: z.literal("/html/convert"),
     url: z.union([z.string(), z.null()]).nullable().default(null).optional()
@@ -48,8 +48,8 @@ defaults to the value \`768\`.
       .describe(`The delay (in milliseconds) applied to allow the page and all of its
 JavaScript to render before taking the screenshot.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`takes screenshots of web pages or uploaded HTML pages`)
 
-export type HtmlConvertRobot = z.infer<typeof html_convert_robot_schema>
+export type HtmlConvertRobot = z.infer<typeof htmlConvertRobotSchema>

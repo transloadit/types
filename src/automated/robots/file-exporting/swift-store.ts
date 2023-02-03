@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/swift/store
 
-export const swift_store_robot_schema = z
+export const swiftStoreRobotSchema = z
   .object({
     robot: z.literal("/swift/store"),
     credentials: z.string()
@@ -42,8 +42,8 @@ these headers [do not support non-ASCII metadata values](https://docs.aws.amazon
 the URL expiry time in seconds. If this parameter is not used, no URL
 signing is done.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to Openstack Swift buckets`)
 
-export type SwiftStoreRobot = z.infer<typeof swift_store_robot_schema>
+export type SwiftStoreRobot = z.infer<typeof swiftStoreRobotSchema>

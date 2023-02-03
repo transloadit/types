@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/azure/store
 
-export const azure_store_robot_schema = z
+export const azureStoreRobotSchema = z
   .object({
     robot: z.literal("/azure/store"),
     credentials: z.string()
@@ -53,8 +53,8 @@ access signature (SAS) to the result URL of your object.
       .describe(`Set this to a combination of \`r\` (read), \`w\` (write) and \`d\` (delete) for
 your shared access signatures (SAS) permissions.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to Microsoft Azure`)
 
-export type AzureStoreRobot = z.infer<typeof azure_store_robot_schema>
+export type AzureStoreRobot = z.infer<typeof azureStoreRobotSchema>

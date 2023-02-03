@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/digitalocean/store
 
-export const digitalocean_store_robot_schema = z
+export const digitaloceanStoreRobotSchema = z
   .object({
     robot: z.literal("/digitalocean/store"),
     credentials: z.string()
@@ -49,8 +49,8 @@ these headers [do not support non-ASCII metadata values](https://docs.aws.amazon
 the URL expiry time in seconds. If this parameter is not used, no URL
 signing is done.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to DigitalOcean Spaces`)
 
-export type DigitaloceanStoreRobot = z.infer<typeof digitalocean_store_robot_schema>
+export type DigitaloceanStoreRobot = z.infer<typeof digitaloceanStoreRobotSchema>

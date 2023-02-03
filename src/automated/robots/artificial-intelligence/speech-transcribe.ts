@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/speech/transcribe
 
-export const speech_transcribe_robot_schema = z
+export const speechTranscribeRobotSchema = z
   .object({
     robot: z.literal("/speech/transcribe"),
     provider: z.enum(["aws", "gcp"])
@@ -43,8 +43,8 @@ The language should be specified in the
 supported languages for [the \`gcp\` provider](https://cloud.google.com/speech-to-text/docs/languages) and the
 [the \`aws\` provider](https://docs.aws.amazon.com/transcribe/latest/dg/what-is-transcribe.html).
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`transcribes speech in audio or video files`)
 
-export type SpeechTranscribeRobot = z.infer<typeof speech_transcribe_robot_schema>
+export type SpeechTranscribeRobot = z.infer<typeof speechTranscribeRobotSchema>

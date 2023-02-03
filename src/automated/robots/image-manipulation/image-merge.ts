@@ -1,10 +1,10 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
-import { output_meta_schema } from "../shared/output_meta"
+import { useSchema } from "../shared/use"
+import { outputMetaSchema } from "../shared/output_meta"
 
 // 🤖/image/merge
 
-export const image_merge_robot_schema = z
+export const imageMergeRobotSchema = z
   .object({
     robot: z.literal("/image/merge"),
     format: z.enum(["jpg", "png"]).default("png").optional()
@@ -41,9 +41,9 @@ For details about how to preserve transparency across all image types, see [this
 <img src="%QUALITY_40%" />
 <br /> If this parameter is not specified, it will default to the quality of the input image. If we're unable to determine the quality, it will default to \`92\`.
 `),
-    use: use_schema,
-    output_meta: output_meta_schema,
+    use: useSchema,
+    output_meta: outputMetaSchema,
   })
   .describe(`merges several images into a single spritesheet.`)
 
-export type ImageMergeRobot = z.infer<typeof image_merge_robot_schema>
+export type ImageMergeRobot = z.infer<typeof imageMergeRobotSchema>

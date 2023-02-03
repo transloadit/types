@@ -4,6 +4,7 @@ import matter from "gray-matter"
 import prettier from "prettier"
 import assert from "node:assert"
 import yaml from "js-yaml"
+import camelCase from "camelcase"
 
 const robots_dir = "../content/collections/_robots"
 const inherits_file = "../content/_data/robot_inherits.yml"
@@ -24,7 +25,7 @@ if (is_obj(parameters)) {
       path.join(output_dir, "shared/", name + ".ts"),
       format(`import { z } from 'zod';
 
-export const ${name}_schema = ${inherits[name]}`),
+export const ${camelCase(name)}Schema = ${inherits[name]}`),
       "utf-8"
     )
   }
@@ -45,7 +46,7 @@ async function processRobot(file_contents: string) {
   // fs.mkdir(output_dir, { recursive: true })
   const { data } = matter(file_contents)
 
-  const name = data.slug.replace(/-/g, "_") + "_robot_schema"
+  const name = camelCase(data.slug) + "RobotSchema"
 
   const robot = `import { z } from 'zod';
 ${add_imports(data.parameters)}
@@ -74,7 +75,7 @@ function add_imports(params: Record<string, unknown>) {
   if (!Array.isArray(params._inherits)) return ""
 
   return params._inherits
-    .map((x: string) => `import { ${x}_schema } from '../shared/${x}'`)
+    .map((x: string) => `import { ${camelCase(x)}Schema } from '../shared/${x}'`)
     .join("\n")
 }
 
@@ -86,7 +87,7 @@ function parse_parameters(params: unknown): string[] {
   for (const [name, value] of Object.entries(params)) {
     // ignore inherits
     if (name === "_inherits" && Array.isArray(value)) {
-      value.forEach((x) => result.push(`"${x}": ${x}_schema`))
+      value.forEach((x) => result.push(`"${x}": ${camelCase(x)}Schema`))
       continue
     }
 

@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/file/compress
 
-export const file_compress_robot_schema = z
+export const fileCompressRobotSchema = z
   .object({
     robot: z.literal("/file/compress"),
     format: z.enum(["tar", "zip"]).default("tar").optional()
@@ -26,15 +26,26 @@ This parameter has no effect if the format parameter is anything other than
 \`"zip"\`.
 `),
     compression_level: z
-      .enum(["-0", "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9"])
-      .default("-6")
-      .optional().describe(`Determines how fiercly to try to compress the archive. \`-0\` is
+      .union([
+        z.literal(0),
+        z.literal(-1),
+        z.literal(-2),
+        z.literal(-3),
+        z.literal(-4),
+        z.literal(-5),
+        z.literal(-6),
+        z.literal(-7),
+        z.literal(-8),
+        z.literal(-9),
+      ])
+      .default(-6)
+      .optional().describe(`Determines how fiercely to try to compress the archive. \`-0\` is
 compressionless, which is suitable for media that is already compressed.
-\`"-1"\` is fastest with lowest compression. \`"-9"\` is slowest with the highest
+\`-1\` is fastest with lowest compression. \`-9\` is slowest with the highest
 compression.
 
-If you are using \`"-0"\` in combination with the \`tar\` format
-with \`gzip\` enabled, consider setting \`gzip\` to \`false\` instead. This
+If you are using \`-0\` in combination with the \`tar\` format
+with \`gzip\` enabled, consider setting \`gzip: false\` instead. This
 results in a plain Tar archive, meaning it already has no compression.
 `),
     file_layout: z.string().default("advanced").optional()
@@ -45,8 +56,8 @@ explanation below (value for this is \`"advanced"\`).
 Files with same names are numbered in the \`"simple"\` file layout to avoid
 naming collisions.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`creates archives of files or file conversion results`)
 
-export type FileCompressRobot = z.infer<typeof file_compress_robot_schema>
+export type FileCompressRobot = z.infer<typeof fileCompressRobotSchema>

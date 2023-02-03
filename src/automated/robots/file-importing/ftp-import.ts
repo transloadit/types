@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/ftp/import
 
-export const ftp_import_robot_schema = z
+export const ftpImportRobotSchema = z
   .object({
     robot: z.literal("/ftp/import"),
     credentials: z.string()
@@ -44,10 +44,10 @@ it to \`["meta", "import"]\` internally.
     passive_mode: z.boolean().default(true).optional()
       .describe(`Determines if passive mode should be used for the FTP connection.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(
     `imports whole libraries of files from your FTP servers into Transloadit. This Robot relies on password access. For more security, consider our /sftp/import Robot`
   )
 
-export type FtpImportRobot = z.infer<typeof ftp_import_robot_schema>
+export type FtpImportRobot = z.infer<typeof ftpImportRobotSchema>

@@ -1,10 +1,10 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
-import { imagemagick_stack_schema } from "../shared/imagemagick_stack"
+import { useSchema } from "../shared/use"
+import { imagemagickStackSchema } from "../shared/imagemagick_stack"
 
 // 🤖/document/thumbs
 
-export const document_thumbs_robot_schema = z
+export const documentThumbsRobotSchema = z
   .object({
     robot: z.literal("/document/thumbs"),
     page: z.union([z.number().int(), z.null()]).nullable().default(null).optional()
@@ -110,11 +110,11 @@ height, size and thumb_index will be extracted for the result images,
 which would also provide a great performance boost for documents with many
 pages.
 `),
-    use: use_schema,
-    imagemagick_stack: imagemagick_stack_schema,
+    use: useSchema,
+    imagemagick_stack: imagemagickStackSchema,
   })
   .describe(
     `generates an image for each page in a PDF file or an animated gif file that loops through all pages`
   )
 
-export type DocumentThumbsRobot = z.infer<typeof document_thumbs_robot_schema>
+export type DocumentThumbsRobot = z.infer<typeof documentThumbsRobotSchema>

@@ -1,10 +1,10 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
-import { ffmpeg_stack_schema } from "../shared/ffmpeg_stack"
+import { useSchema } from "../shared/use"
+import { ffmpegStackSchema } from "../shared/ffmpeg_stack"
 
 // 🤖/video/adaptive
 
-export const video_adaptive_robot_schema = z
+export const videoAdaptiveRobotSchema = z
   .object({
     robot: z.literal("/video/adaptive"),
     technique: z.enum(["dash", "hls"]).default("dash").optional()
@@ -23,11 +23,11 @@ your \`technique\` is \`"hls"\`.
       .describe(`Determines whether you want closed caption support when using the \`"hls"\`
 technique.
 `),
-    use: use_schema,
-    ffmpeg_stack: ffmpeg_stack_schema,
+    use: useSchema,
+    ffmpeg_stack: ffmpegStackSchema,
   })
   .describe(
     `encodes videos into HTTP Live Streaming (HLS) and MPEG-Dash supported formats and generates the necessary manifest and playlist files`
   )
 
-export type VideoAdaptiveRobot = z.infer<typeof video_adaptive_robot_schema>
+export type VideoAdaptiveRobot = z.infer<typeof videoAdaptiveRobotSchema>

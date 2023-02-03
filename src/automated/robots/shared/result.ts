@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const result_schema = z.boolean().optional()
+export const resultSchema = z.boolean().optional()
   .describe(`Controls whether the results of this <dfn>Step</dfn> should be present in the <dfn>Assembly Status JSON</dfn>.
 
 If set to \`true\`, the result of this <dfn>Step</dfn> will be present. If files

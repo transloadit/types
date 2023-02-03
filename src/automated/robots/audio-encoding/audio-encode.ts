@@ -1,11 +1,11 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
-import { ffmpeg_stack_schema } from "../shared/ffmpeg_stack"
-import { output_meta_schema } from "../shared/output_meta"
+import { useSchema } from "../shared/use"
+import { ffmpegStackSchema } from "../shared/ffmpeg_stack"
+import { outputMetaSchema } from "../shared/output_meta"
 
 // 🤖/audio/encode
 
-export const audio_encode_robot_schema = z
+export const audioEncodeRobotSchema = z
   .object({
     robot: z.literal("/audio/encode"),
     preset: z.string().default("mp3").optional()
@@ -46,12 +46,12 @@ unless you have a good reason.
 and so on. This is optional, and defaults to the base name of the input
 file.
 `),
-    use: use_schema,
-    ffmpeg_stack: ffmpeg_stack_schema,
-    output_meta: output_meta_schema,
+    use: useSchema,
+    ffmpeg_stack: ffmpegStackSchema,
+    output_meta: outputMetaSchema,
   })
   .describe(
     `converts audio files into all kinds of formats for you. We provide encoding presets for the most common formats`
   )
 
-export type AudioEncodeRobot = z.infer<typeof audio_encode_robot_schema>
+export type AudioEncodeRobot = z.infer<typeof audioEncodeRobotSchema>

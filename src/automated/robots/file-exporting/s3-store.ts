@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/s3/store
 
-export const s3_store_robot_schema = z
+export const s3StoreRobotSchema = z
   .object({
     robot: z.literal("/s3/store"),
     credentials: z.string()
@@ -71,8 +71,8 @@ hosteurope.de).
 this parameter to is the URL expiry time in seconds. If this parameter is
 not used, no URL signing is done.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to Amazon S3`)
 
-export type S3StoreRobot = z.infer<typeof s3_store_robot_schema>
+export type S3StoreRobot = z.infer<typeof s3StoreRobotSchema>

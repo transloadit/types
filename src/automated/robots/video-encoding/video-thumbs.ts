@@ -1,11 +1,11 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
-import { ffmpeg_stack_schema } from "../shared/ffmpeg_stack"
-import { output_meta_schema } from "../shared/output_meta"
+import { useSchema } from "../shared/use"
+import { ffmpegStackSchema } from "../shared/ffmpeg_stack"
+import { outputMetaSchema } from "../shared/output_meta"
 
 // 🤖/video/thumbs
 
-export const video_thumbs_robot_schema = z
+export const videoThumbsRobotSchema = z
   .object({
     robot: z.literal("/video/thumbs"),
     count: z.number().int().min(1).max(999).default(8).optional()
@@ -56,10 +56,10 @@ orientation of many videos when the orientation is provided by the camera.
 This option is only useful for videos requiring rotation because it was
 not detected by the camera.
 `),
-    use: use_schema,
-    ffmpeg_stack: ffmpeg_stack_schema,
-    output_meta: output_meta_schema,
+    use: useSchema,
+    ffmpeg_stack: ffmpegStackSchema,
+    output_meta: outputMetaSchema,
   })
   .describe(`extracts any number of images from videos for use as previews`)
 
-export type VideoThumbsRobot = z.infer<typeof video_thumbs_robot_schema>
+export type VideoThumbsRobot = z.infer<typeof videoThumbsRobotSchema>

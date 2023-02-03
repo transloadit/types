@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/file/virusscan
 
-export const file_virusscan_robot_schema = z
+export const fileVirusscanRobotSchema = z
   .object({
     robot: z.literal("/file/virusscan"),
     error_on_decline: z.boolean().default(false).optional()
@@ -14,10 +14,10 @@ will be stopped and marked with an error.
       .describe(`The error message shown to your users (such as by Uppy) when a
 file is declined and \`error_on_decline\` is set to \`true\`.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(
     `rejects millions of trojans, viruses, malware & other malicious threats before they reach your platform`
   )
 
-export type FileVirusscanRobot = z.infer<typeof file_virusscan_robot_schema>
+export type FileVirusscanRobot = z.infer<typeof fileVirusscanRobotSchema>

@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/ftp/store
 
-export const ftp_store_robot_schema = z
+export const ftpStoreRobotSchema = z
   .object({
     robot: z.literal("/ftp/store"),
     credentials: z.string()
@@ -33,10 +33,10 @@ of the path.
     ssl_url_template: z.string().default("https://{HOST}/{PATH}").optional()
       .describe(`The SSL URL of the file in the result JSON. The following [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables) are supported.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(
     `exports encoding results to your FTP servers. This Robot relies on password access. For more security, consider our /sftp/store Robot`
   )
 
-export type FtpStoreRobot = z.infer<typeof ftp_store_robot_schema>
+export type FtpStoreRobot = z.infer<typeof ftpStoreRobotSchema>

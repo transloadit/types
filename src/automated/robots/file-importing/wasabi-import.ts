@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/wasabi/import
 
-export const wasabi_import_robot_schema = z
+export const wasabiImportRobotSchema = z
   .object({
     robot: z.literal("/wasabi/import"),
     credentials: z.string()
@@ -75,8 +75,8 @@ not cease to function on any import errors either.
 To keep backwards compatibility, setting this parameter to \`true\` will set
 it to \`["meta", "import"]\` internally.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`imports whole directories of files from your wasabi bucket`)
 
-export type WasabiImportRobot = z.infer<typeof wasabi_import_robot_schema>
+export type WasabiImportRobot = z.infer<typeof wasabiImportRobotSchema>

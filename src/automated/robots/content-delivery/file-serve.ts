@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/file/serve
 
-export const file_serve_robot_schema = z
+export const fileServeRobotSchema = z
   .object({
     robot: z.literal("/file/serve"),
     headers: z
@@ -24,8 +24,8 @@ export const file_serve_robot_schema = z
 to a CDN/web browser, such as \`{ FileURL: "\${file.url_name}" }\` which will
 be merged over the defaults, and can include any available [Assembly Variable](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables).
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`serves files to web browsers`)
 
-export type FileServeRobot = z.infer<typeof file_serve_robot_schema>
+export type FileServeRobot = z.infer<typeof fileServeRobotSchema>

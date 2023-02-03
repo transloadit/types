@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/image/ocr
 
-export const image_ocr_robot_schema = z
+export const imageOcrRobotSchema = z
   .object({
     robot: z.literal("/image/ocr"),
     provider: z.enum(["aws", "gcp"])
@@ -29,8 +29,8 @@ between encoding <dfn>Steps</dfn>, so that you can use the values to burn
 the data into videos, filter on them, etc.
 - \`"text"\` returns the recognized text as a plain UTF-8 encoded text file.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`recognizes text in images and returns it in a machine-readable format`)
 
-export type ImageOcrRobot = z.infer<typeof image_ocr_robot_schema>
+export type ImageOcrRobot = z.infer<typeof imageOcrRobotSchema>

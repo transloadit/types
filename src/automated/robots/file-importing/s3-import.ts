@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/s3/import
 
-export const s3_import_robot_schema = z
+export const s3ImportRobotSchema = z
   .object({
     robot: z.literal("/s3/import"),
     credentials: z.string()
@@ -76,8 +76,8 @@ not cease to function on any import errors either.
 To keep backwards compatibility, setting this parameter to \`true\` will set
 it to \`["meta", "import"]\` internally.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`imports whole directories of files from your S3 bucket`)
 
-export type S3ImportRobot = z.infer<typeof s3_import_robot_schema>
+export type S3ImportRobot = z.infer<typeof s3ImportRobotSchema>

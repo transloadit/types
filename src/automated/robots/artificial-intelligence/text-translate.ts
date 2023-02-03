@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/text/translate
 
-export const text_translate_robot_schema = z
+export const textTranslateRobotSchema = z
   .object({
     robot: z.literal("/text/translate"),
     provider: z.enum(["aws", "gcp"])
@@ -34,8 +34,8 @@ If the exact language can't be found, a generic variant can be fallen
 back to. For example, if you specify \`"en-US"\`, "en" will be used instead.
 Please consult the list of supported languages for each provider.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`translates text in documents`)
 
-export type TextTranslateRobot = z.infer<typeof text_translate_robot_schema>
+export type TextTranslateRobot = z.infer<typeof textTranslateRobotSchema>

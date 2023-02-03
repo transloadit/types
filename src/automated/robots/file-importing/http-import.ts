@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/http/import
 
-export const http_import_robot_schema = z
+export const httpImportRobotSchema = z
   .object({
     robot: z.literal("/http/import"),
     url: z.union([z.string(), z.array(z.string())])
@@ -59,8 +59,8 @@ but it doesn't import the file.
 can't be imported. This can be useful for performance critical
 applications.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`imports any file that is publicly available via a web URL into Transloadit`)
 
-export type HttpImportRobot = z.infer<typeof http_import_robot_schema>
+export type HttpImportRobot = z.infer<typeof httpImportRobotSchema>

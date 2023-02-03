@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const output_meta_schema = z
+export const outputMetaSchema = z
   .union([z.record(z.string()), z.boolean()])
   .default({})
   .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU

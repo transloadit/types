@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/vimeo/store
 
-export const vimeo_store_robot_schema = z
+export const vimeoStoreRobotSchema = z
   .object({
     robot: z.literal("/vimeo/store"),
     credentials: z.string()
@@ -45,8 +45,8 @@ accounting by upgrading to their "Pro" plan. If you use it while on their
 Freemium plan, the Vimeo API will return an \`"Invalid parameter supplied"\`
 error.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to vimeo`)
 
-export type VimeoStoreRobot = z.infer<typeof vimeo_store_robot_schema>
+export type VimeoStoreRobot = z.infer<typeof vimeoStoreRobotSchema>

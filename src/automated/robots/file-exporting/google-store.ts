@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
+import { useSchema } from "../shared/use"
 
 // 🤖/google/store
 
-export const google_store_robot_schema = z
+export const googleStoreRobotSchema = z
   .object({
     robot: z.literal("/google/store"),
     credentials: z.string()
@@ -50,8 +50,8 @@ as this parameter's value.
 \`"authenticated-read"\`, \`"bucket-owner-full-control"\`, \`"private"\` or
 \`"project-private"\`.
 `),
-    use: use_schema,
+    use: useSchema,
   })
   .describe(`exports encoding results to Google Storage`)
 
-export type GoogleStoreRobot = z.infer<typeof google_store_robot_schema>
+export type GoogleStoreRobot = z.infer<typeof googleStoreRobotSchema>

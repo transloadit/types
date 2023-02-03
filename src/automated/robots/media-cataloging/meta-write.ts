@@ -1,10 +1,10 @@
 import { z } from "zod"
-import { use_schema } from "../shared/use"
-import { ffmpeg_stack_schema } from "../shared/ffmpeg_stack"
+import { useSchema } from "../shared/use"
+import { ffmpegStackSchema } from "../shared/ffmpeg_stack"
 
 // 🤖/meta/write
 
-export const meta_write_robot_schema = z
+export const metaWriteRobotSchema = z
   .object({
     robot: z.literal("/meta/write"),
     data_to_write: z.record(z.string()).default({}).optional()
@@ -12,9 +12,9 @@ export const meta_write_robot_schema = z
 
 Valid metadata keys can be found [here](https://exiftool.org/TagNames/EXIF.html). For example: \`ProcessingSoftware\`.
 `),
-    use: use_schema,
-    ffmpeg_stack: ffmpeg_stack_schema,
+    use: useSchema,
+    ffmpeg_stack: ffmpegStackSchema,
   })
   .describe(`writes metadata into any file that supports it`)
 
-export type MetaWriteRobot = z.infer<typeof meta_write_robot_schema>
+export type MetaWriteRobot = z.infer<typeof metaWriteRobotSchema>
