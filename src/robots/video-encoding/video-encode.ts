@@ -1,13 +1,13 @@
 import { z } from "zod"
-import { ffmpeg_stack } from "../shared/ffmpeg-presets"
-import { output_meta } from "../shared/output-meta"
-import { resize_strategy } from "../shared/resize_strategy"
+import { ffmpegStackPresetFfmpegOverridesSchema, ffmpegStackSchema } from "../shared/ffmpeg"
+import { outputMetaSchema } from "../shared/output-meta"
+import { resizeStrategySchema } from "../shared/resize-strategy"
 import { useSchema } from "../shared/use"
 
 const base = z.object({
   robot: z.literal("/video/encode"),
   use: useSchema,
-  output_meta: output_meta.optional(),
+  output_meta: outputMetaSchema.optional(),
   width: z.number().int().positive().min(1).max(1920).optional()
     .describe(`Width of the new video, in pixels.
 
@@ -16,7 +16,7 @@ If the value is not specified and the \`preset\` parameter is available, the pre
     .describe(`Height of the new video, in pixels.
 
 If the value is not specified and the \`preset\` parameter is available, the preset's supplied height will be implemented.`),
-  resize_strategy: resize_strategy.default("pad").optional(),
+  resize_strategy: resizeStrategySchema.default("pad").optional(),
   zoom: z
     .boolean()
     .default(true)
@@ -128,8 +128,88 @@ If left unspecified, the optimal default value will be automatically determined 
     .describe(
       `Position of the watermark on the video. Possible values are \`"center"\`, \`"top"\`, \`"bottom"\`, \`"left"\`, \`"right"\`, \`"top-left"\`, \`"top-right"\`, \`"bottom-left"\`, \`"bottom-right"\`.`
     ),
+  watermark_x_offset: z.number().int().default(0).optional()
+    .describe(`The x-offset in number of pixels at which the watermark will be placed in
+relation to the position it has due to \`watermark_position\`.
+
+Values can be both positive and negative and yield different results
+depending on the \`watermark_position\` parameter. Positive values move the
+watermark closer to the image's center point, whereas negative values move
+the watermark further away from the image's center point.
+`),
+  watermark_y_offset: z.number().int().default(0).optional()
+    .describe(`The y-offset in number of pixels at which the watermark will be placed in
+relation to the position it has due to \`watermark_position\`.
+
+Values can be both positive and negative and yield different results
+depending on the \`watermark_position\` parameter. Positive values move the
+watermark closer to the image's center point, whereas negative values move
+the watermark further away from the image's center point.
+`),
+  watermark_size: z.string().optional()
+    .describe(`The size of the watermark, as a percentage, such as \`"50%"\`. How the
+watermark is resized greatly depends on the \`watermark_resize_strategy\`.
+`),
+  watermark_resize_strategy: z.enum(["fit", "stretch", "area"]).default("fit").optional()
+    .describe(`To explain how the resize strategies work, let's assume our target video
+size is 800×800 pixels and our watermark image is 400×300 pixels. Let's
+also assume, the \`watermark_size\` parameter is set to \`"25%"\`.
+
+For the \`"fit"\` resize strategy, the watermark is scaled so that the
+longer side of the watermark takes up 25% of the corresponding video side.
+And the other side is scaled according to the aspect ratio of the
+watermark image. So with our watermark, the width is the longer side, and
+25% of the video size would be 200px. Hence, the watermark would be
+resized to 200×150 pixels. If the \`watermark_size\` was set to \`"50%"\`", it
+would be resized to 400×300 pixels (so just left at its original size).
+
+For the \`"stretch"\` resize strategy, the watermark image is stretched
+(meaning, it is resized without keeping its aspect ratio in mind) so that
+both sides take up 25% of the corresponding video side. Since our video is
+800×800 pixels, for a watermark size of 25% the watermark would be resized
+to 200×200 pixels. Its height would appear stretched, because keeping the
+aspect ratio in mind it would be resized to 200×150 pixels instead.
+
+For the \`"area"\` resize strategy, the watermark is resized (keeping its
+aspect ratio in check) so that it covers \`"xx%"\` of the video's surface
+area. The value from \`watermark_size\` is used for the percentage area
+size.
+`),
+  watermark_start_time: z.number().default(0).optional()
+    .describe(`The delay in seconds from the start of the video for the watermark to
+appear. By default the watermark is immediately shown.
+`),
+  watermark_duration: z.number().default(-1).optional()
+    .describe(`The duration in seconds for the watermark to be shown. Can be used
+together with \`watermark_start_time\` to create nice effects. The
+default value is \`-1.0\`, which means that the
+watermark is shown for the entire duration of the video.
+`),
+  watermark_opacity: z.number().default(1).optional()
+    .describe(`The opacity of the watermark. Valid values are between \`0\` (invisible) and
+\`1.0\` (full visibility).
+`),
+  segment: z.boolean().default(false).optional()
+    .describe(`Splits the file into multiple parts, to be used for Apple's [HTTP Live Streaming](https://developer.apple.com/resources/http-streaming/).
+`),
+  segment_duration: z.number().int().default(10).optional()
+    .describe(`Specifies the length of each HTTP segment. This is optional, and the
+default value as recommended by Apple is \`10\`. Do not change this value
+unless you have a good reason.
+`),
+  segment_prefix: z.string().optional()
+    .describe(`The prefix used for the naming. For example, a prefix of \`"segment_"\`
+would produce files named \`"segment_0.ts"\`, \`"segment_1.ts"\`, and so on.
+This is optional, and defaults to the base name of the input file. Also
+see the related \`segment_name\` parameter.
+`),
+  segment_name: z.string().default("${segment_prefix}${segment_number}.ts").optional()
+    .describe(`The name used for the final segment. Available variables are
+\`\${segment_prefix}\`, \`\${segment_number}\` and \`\${segment_id}\` (which is a
+UUIDv4 without dashes).
+`),
 })
 
-export const videoEncodeRobotSchema = base.and(ffmpeg_stack)
+export const videoEncodeRobotSchema = base.and(ffmpegStackPresetFfmpegOverridesSchema)
 
 export type VideoEncodeRobot = z.infer<typeof videoEncodeRobotSchema>

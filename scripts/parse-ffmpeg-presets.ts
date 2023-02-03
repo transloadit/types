@@ -14,7 +14,7 @@ const presets = yaml.load(
 const { ffmpeg } = presets
 
 for (const stack in ffmpeg) {
-  const presets = []
+  const presets: string[] = []
   for (const preset in ffmpeg[stack]) {
     presets.push(preset)
   }

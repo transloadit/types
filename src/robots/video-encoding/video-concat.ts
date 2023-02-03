@@ -1,12 +1,12 @@
 import { z } from "zod"
-import { ffmpeg_stack } from "../shared/ffmpeg-presets"
-import { output_meta } from "../shared/output-meta"
+import { ffmpegStackPresetFfmpegOverridesSchema } from "../shared/ffmpeg"
+import { outputMetaSchema } from "../shared/output-meta"
 import { useSchema } from "../shared/use"
 
 const base = z.object({
   robot: z.literal("/video/concat"),
   use: useSchema,
-  output_meta: z.optional(output_meta),
+  output_meta: z.optional(outputMetaSchema),
   video_fade_seconds: z.optional(
     z.number().default(1.0)
       .describe(`When used this adds a video fade in and out effect between each section of your concatenated video. The float value is used so if you want a video delay effect of 500 milliseconds between each video section you would select \`0.5\`, however, integer values can also be represented.
@@ -25,7 +25,7 @@ Please note this parameter is independent of adding video fades between sections
   ),
 })
 
-export const videoConcatRobotSchema = base.and(ffmpeg_stack)
+export const videoConcatRobotSchema = base.and(ffmpegStackPresetFfmpegOverridesSchema)
 
 export type VideoConcatRobot = z.infer<typeof videoConcatRobotSchema>
 

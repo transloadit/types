@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { output_meta } from "../shared/output-meta"
+import { outputMetaSchema } from "../shared/output-meta"
 
 export const uploadHandleRobotSchema = z.object({
   robot: z.literal("/upload/handle"),
-  output_meta: z.optional(output_meta),
+  output_meta: z.optional(outputMetaSchema),
 })
 
 export type UploadHandleRobot = z.infer<typeof uploadHandleRobotSchema>

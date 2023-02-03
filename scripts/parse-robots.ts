@@ -46,6 +46,9 @@ async function processRobot(file_contents: string) {
   // fs.mkdir(output_dir, { recursive: true })
   const { data } = matter(file_contents)
 
+  // don't process the robot if it's unlisted
+  if (data?.unlisted) return
+
   const name = camelCase(data.slug) + "RobotSchema"
 
   const robot = `import { z } from 'zod';

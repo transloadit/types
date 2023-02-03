@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const output_meta = z
+export const outputMetaSchema = z
   .union([
     z.literal(false, {
       description:
