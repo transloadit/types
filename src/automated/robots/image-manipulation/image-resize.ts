@@ -104,7 +104,6 @@ small as possible.
         "Shape",
         "Transparent",
       ])
-      .default("")
       .optional().describe(`Gives control of the alpha/matte channel of an image. Valid options are
 \`"Activate"\`, \`"Background"\`, \`"Copy"\`, \`"Deactivate"\`, \`"Extract"\`,
 \`"Off"\`, \`"On"\`, \`"Opaque"\`, \`"Remove"\`, \`"Set"\`, \`"Shape"\`,
@@ -125,7 +124,6 @@ small as possible.
         "Shape",
         "Transparent",
       ])
-      .default("")
       .optional().describe(`Gives control of the alpha/matte channel of an image before applying the
 clipping path via \`clip: true\`. Valid options are \`"Activate"\`,
 \`"Background"\`, \`"Copy"\`, \`"Deactivate"\`, \`"Extract"\`, \`"Off"\`, \`"On"\`,
@@ -168,7 +166,41 @@ see [this demo](https://transloadit.com/demos/image-manipulation/properly-preser
 frame of the GIF is used for the operation. Specify \`1\` to use the first
 frame, \`2\` to use the second, and so on. \`null\` means all frames.
 `),
-    colorspace: z.enum(["sRGB", "Gray"]).default("").optional()
+    colorspace: z
+      .enum([
+        "CMY",
+        "CMYK",
+        "Gray",
+        "HCL",
+        "HCLp",
+        "HSB",
+        "HSI",
+        "HSL",
+        "HSV",
+        "HWB",
+        "Lab",
+        "LCHab",
+        "LCHuv",
+        "LMS",
+        "Log",
+        "Luv",
+        "OHTA",
+        "Rec601YCbCr",
+        "Rec709YCbCr",
+        "RGB",
+        "scRGB",
+        "sRGB",
+        "Transparent",
+        "xyY",
+        "XYZ",
+        "YCbCr",
+        "YCC",
+        "YDbDr",
+        "YIQ",
+        "YPbPr",
+        "YUV",
+      ])
+      .optional()
       .describe(`Sets the image colorspace. For details about the available values, see the
 [ImageMagick documentation](https://www.imagemagick.org/script/command-line-options.php#colorspace).
 Please note that if you were using \`"RGB"\`, we recommend using \`"sRGB"\`

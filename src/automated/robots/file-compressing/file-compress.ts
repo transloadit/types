@@ -27,13 +27,13 @@ This parameter has no effect if the format parameter is anything other than
 `),
     compression_level: z
       .enum(["-0", "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9"])
-      .default(-6)
+      .default("-6")
       .optional().describe(`Determines how fiercly to try to compress the archive. \`-0\` is
 compressionless, which is suitable for media that is already compressed.
-\`-1\` is fastest with lowest compression. \`-9\` is slowest with the highest
+\`"-1"\` is fastest with lowest compression. \`"-9"\` is slowest with the highest
 compression.
 
-If you are using \`-0\` in combination with the \`tar\` format
+If you are using \`"-0"\` in combination with the \`tar\` format
 with \`gzip\` enabled, consider setting \`gzip\` to \`false\` instead. This
 results in a plain Tar archive, meaning it already has no compression.
 `),

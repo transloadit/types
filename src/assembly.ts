@@ -101,17 +101,3 @@ export const assemblySchema = z.object({
 })
 
 export type Assembly = z.infer<typeof assemblySchema>
-
-const assembly: Assembly = {
-  steps: {
-    ":original": {
-      robot: "/upload/handle",
-    },
-    import: {
-      robot: "/video/concat",
-      use: "whatever",
-      ffmpeg_stack: "v3.3.3",
-      preset: "flash",
-    },
-  },
-}
