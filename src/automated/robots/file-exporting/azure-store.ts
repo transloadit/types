@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/azure/store
 
-export const azure_store_robot_schema = z.object({
-  robot: z.literal("/azure/store"),
-  credentials: z.string()
-    .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
+export const azure_store_robot_schema = z
+  .object({
+    robot: z.literal("/azure/store"),
+    credentials: z.string()
+      .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
 Transloadit account and use the name of your
 [Template Credentials](https://transloadit.com/c/template-credentials/)
 as this parameter's value. They will contain the values for your Azure
@@ -17,42 +18,42 @@ some use cases demand dynamic credentials for which using
 nature. If you have this requirement, feel free to use the following
 parameters instead: \`"account"\`, \`"key"\`, \`"container"\`.
 `),
-  path: z.string().default("${unique_prefix}/${file.url_name}").optional()
-    .describe(`The path at which the file is to be stored. This may include any available
+    path: z.string().default("${unique_prefix}/${file.url_name}").optional()
+      .describe(`The path at which the file is to be stored. This may include any available
 [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables).
 `),
-  content_type: z.string().default("").optional()
-    .describe(`The content type with which to store the file. By default this will be
+    content_type: z.string().default("").optional()
+      .describe(`The content type with which to store the file. By default this will be
 guessed by Azure.
 `),
-  content_encoding: z.string().default("").optional()
-    .describe(`The content encoding with which to store the file. By default this will be
+    content_encoding: z.string().default("").optional()
+      .describe(`The content encoding with which to store the file. By default this will be
 guessed by Azure.
 `),
-  content_language: z.string().default("").optional()
-    .describe(`The content language with which to store the file. By default this will be
+    content_language: z.string().default("").optional()
+      .describe(`The content language with which to store the file. By default this will be
 guessed by Azure.
 `),
-  cache_control: z.string().default("").optional()
-    .describe(`The cache control header with which to store the file.
+    cache_control: z.string().default("").optional()
+      .describe(`The cache control header with which to store the file.
 `),
-  metadata: z.record(z.string()).default({}).optional()
-    .describe(`A JavaScript object containing a list of metadata to be set for this file
+    metadata: z.record(z.string()).default({}).optional()
+      .describe(`A JavaScript object containing a list of metadata to be set for this file
 on Azure, such as \`{ FileURL: "\${file.url_name}" }\`. This can also include
 any available [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables).
 `),
-  sas_expires_in: z.union([z.number().int(), z.null()]).default(null).optional()
-    .describe(`Set this to a number to enable shared access signatures for your stored
+    sas_expires_in: z.union([z.number().int(), z.null()]).nullable().default(null).optional()
+      .describe(`Set this to a number to enable shared access signatures for your stored
 object. This reflects the number of seconds that the signature will be
 valid for once the object is stored. Enabling this will attach the shared
 access signature (SAS) to the result URL of your object.
 `),
-  sas_permissions: z.string().default("").optional()
-    .describe(`Set this to a combination of \`r\` (read), \`w\` (write) and \`d\` (delete) for
+    sas_permissions: z.string().default("").optional()
+      .describe(`Set this to a combination of \`r\` (read), \`w\` (write) and \`d\` (delete) for
 your shared access signatures (SAS) permissions.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -201,6 +202,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type AzureStoreRobot = z.infer<typeof azure_store_robot_schema>

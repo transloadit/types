@@ -2,26 +2,27 @@ import { z } from "zod"
 
 // 🤖/video/adaptive
 
-export const video_adaptive_robot_schema = z.object({
-  robot: z.literal("/video/adaptive"),
-  technique: z.enum(["dash", "hls"]).default("dash").optional()
-    .describe(`Determines which streaming technique should be used. Currently supports
+export const video_adaptive_robot_schema = z
+  .object({
+    robot: z.literal("/video/adaptive"),
+    technique: z.enum(["dash", "hls"]).default("dash").optional()
+      .describe(`Determines which streaming technique should be used. Currently supports
 \`"dash"\` for MPEG-Dash and \`"hls"\` for HTTP Live Streaming.
 `),
-  playlist_name: z.string().default("playlist.mpd").optional()
-    .describe(`The filename for the generated manifest/playlist file. The default is
+    playlist_name: z.string().default("playlist.mpd").optional()
+      .describe(`The filename for the generated manifest/playlist file. The default is
 \`"playlist.mpd"\` if your \`technique\` is \`"dash"\`, and \`"playlist.m3u8"\` if
 your \`technique\` is \`"hls"\`.
 `),
-  segment_duration: z.number().int().default(10).optional()
-    .describe(`The duration for each segment in seconds.
+    segment_duration: z.number().int().default(10).optional()
+      .describe(`The duration for each segment in seconds.
 `),
-  closed_captions: z.boolean().default(true).optional()
-    .describe(`Determines whether you want closed caption support when using the \`"hls"\`
+    closed_captions: z.boolean().default(true).optional()
+      .describe(`Determines whether you want closed caption support when using the \`"hls"\`
 technique.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -170,13 +171,14 @@ cases:
   \`\`\`
 
 </details>`),
-  ffmpeg_stack: z.string().default("v3.3.3").optional()
-    .describe(`Selects the FFmpeg stack version to use for encoding.
+    ffmpeg_stack: z.string().default("v3.3.3").optional()
+      .describe(`Selects the FFmpeg stack version to use for encoding.
 These versions reflect real FFmpeg versions.
 
 The current recommendation is to use \`"{{stacks.ffmpeg.recommended_version}}"\`.
 Other valid values can be found [here](https://transloadit.com/docs/transcoding/video-encoding/video-presets/).
 `),
-})
+  })
+  .describe("undefined")
 
 export type VideoAdaptiveRobot = z.infer<typeof video_adaptive_robot_schema>

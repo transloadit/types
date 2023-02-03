@@ -2,35 +2,36 @@ import { z } from "zod"
 
 // 🤖/image/facedetect
 
-export const image_facedetect_robot_schema = z.object({
-  robot: z.literal("/image/facedetect"),
-  crop: z.boolean().default(false).optional()
-    .describe(`Determine if the detected faces should be extracted. If this option is set
+export const image_facedetect_robot_schema = z
+  .object({
+    robot: z.literal("/image/facedetect"),
+    crop: z.boolean().default(false).optional()
+      .describe(`Determine if the detected faces should be extracted. If this option is set
 to \`false\`, then the <dfn>Robot</dfn> returns the input image again, but
 with the coordinates of all detected faces attached to \`file.meta.faces\` in
 the result JSON. If this parameter is set to \`true\`, the <dfn>Robot</dfn>
 will output all detected faces as images.
 `),
-  crop_padding: z.string().default("5px").optional()
-    .describe(`Specifies how much padding is added to the extracted face images if \`crop\`
+    crop_padding: z.string().default("5px").optional()
+      .describe(`Specifies how much padding is added to the extracted face images if \`crop\`
 is set to \`true\`. Values can be in \`px\` (pixels) or \`%\` (percentage of the
 width and height of the particular face image).
 `),
-  format: z.enum(["preserve", "jpg", "png", "tiff"]).default("preserve").optional()
-    .describe(`Determines the output format of the extracted face images if \`crop\` is set
+    format: z.enum(["preserve", "jpg", "png", "tiff"]).default("preserve").optional()
+      .describe(`Determines the output format of the extracted face images if \`crop\` is set
 to \`true\`.
 
 The default value \`"preserve"\` means that the input image
 format is re-used. Valid values are \`"jpg"\`, \`"png"\`, \`"tiff"\` and
 \`"preserve"\`.
 `),
-  min_confidence: z.number().int().max(100).default(70).optional()
-    .describe(`Specifies the minimum confidence that a detected face must have. Only
+    min_confidence: z.number().int().max(100).default(70).optional()
+      .describe(`Specifies the minimum confidence that a detected face must have. Only
 faces which have a higher confidence value than this threshold will be
 included in the result.
 `),
-  faces: z.enum(["each", "max-confidence", "max-size", "group"]).default("each").optional()
-    .describe(`Determines which of the detected faces should be returned. Valid values
+    faces: z.enum(["each", "max-confidence", "max-size", "group"]).default("each").optional()
+      .describe(`Determines which of the detected faces should be returned. Valid values
 are:
 
 - \`"each"\` — each face is returned individually.
@@ -82,8 +83,8 @@ the input image is:
 
 ![]({{site.asset_cdn}}/assets/images/abbas-malek-hosseini-22NnY93qaOk-face-0.jpg)
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -232,6 +233,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type ImageFacedetectRobot = z.infer<typeof image_facedetect_robot_schema>

@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/audio/loop
 
-export const audio_loop_robot_schema = z.object({
-  robot: z.literal("/audio/loop"),
-  preset: z.string().default("mp3").optional()
-    .describe(`Performs conversion using pre-configured settings.
+export const audio_loop_robot_schema = z
+  .object({
+    robot: z.literal("/audio/loop"),
+    preset: z.string().default("mp3").optional()
+      .describe(`Performs conversion using pre-configured settings.
 
 If you specify your own FFmpeg parameters using the <dfn>Robot</dfn>'s
 \`ffmpeg\` parameter and you have not specified a preset, then the default
@@ -14,27 +15,27 @@ override each of the \`mp3\` preset's values manually.
 
 For a list of audio presets, see [audio presets](https://transloadit.com/docs/transcoding/audio-encoding/audio-presets/).
 `),
-  bitrate: z.number().int().optional()
-    .describe(`Bit rate of the resulting audio file, in bits per second. If not specified
+    bitrate: z.number().int().optional()
+      .describe(`Bit rate of the resulting audio file, in bits per second. If not specified
 will default to the bit rate of the input audio file.
 `),
-  sample_rate: z.number().int().optional()
-    .describe(`Sample rate of the resulting audio file, in Hertz. If not specified will
+    sample_rate: z.number().int().optional()
+      .describe(`Sample rate of the resulting audio file, in Hertz. If not specified will
 default to the sample rate of the input audio file.
 `),
-  duration: z.number().default(60).optional()
-    .describe(`Target duration for the whole process in seconds. The <dfn>Robot</dfn>
+    duration: z.number().default(60).optional()
+      .describe(`Target duration for the whole process in seconds. The <dfn>Robot</dfn>
 will loop the input audio file for as long as this target duration is not
 reached yet.
 `),
-  ffmpeg: z.record(z.string()).default({}).optional()
-    .describe(`A parameter object to be passed to FFmpeg. If a preset is used, the
+    ffmpeg: z.record(z.string()).default({}).optional()
+      .describe(`A parameter object to be passed to FFmpeg. If a preset is used, the
 options specified are merged on top of the ones from the preset. For
 available options, see the [FFmpeg documentation](https://ffmpeg.org/ffmpeg-doc.html). Options specified here
 take precedence over the preset options.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -183,17 +184,17 @@ cases:
   \`\`\`
 
 </details>`),
-  ffmpeg_stack: z.string().default("v3.3.3").optional()
-    .describe(`Selects the FFmpeg stack version to use for encoding.
+    ffmpeg_stack: z.string().default("v3.3.3").optional()
+      .describe(`Selects the FFmpeg stack version to use for encoding.
 These versions reflect real FFmpeg versions.
 
 The current recommendation is to use \`"{{stacks.ffmpeg.recommended_version}}"\`.
 Other valid values can be found [here](https://transloadit.com/docs/transcoding/video-encoding/video-presets/).
 `),
-  output_meta: z
-    .union([z.record(z.string()), z.boolean()])
-    .default({})
-    .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
+    output_meta: z
+      .union([z.record(z.string()), z.boolean()])
+      .default({})
+      .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
 power to calculate, and thus is disabled by default to keep your Assemblies
 processing fast.
 
@@ -210,6 +211,7 @@ mean average volume of the audio file.
 You can also set this to \`false\` to skip metadata extraction and speed up
 transcoding.
 `),
-})
+  })
+  .describe("undefined")
 
 export type AudioLoopRobot = z.infer<typeof audio_loop_robot_schema>

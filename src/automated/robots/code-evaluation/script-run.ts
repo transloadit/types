@@ -2,9 +2,10 @@ import { z } from "zod"
 
 // 🤖/script/run
 
-export const script_run_robot_schema = z.object({
-  robot: z.literal("/script/run"),
-  script: z.string().describe(`A string of JavaScript to evaluate. It has access to all JavaScript
+export const script_run_robot_schema = z
+  .object({
+    robot: z.literal("/script/run"),
+    script: z.string().describe(`A string of JavaScript to evaluate. It has access to all JavaScript
 features available in a modern browser environment.
 
 The script is expected to return a \`JSON.stringify\`-able value in the
@@ -22,8 +23,8 @@ You can check whether evaluating this script was free by inspecting
 \`file.meta.isFree\`. It is recommended to do this during development as to
 not see sudden unexpected costs in production.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -172,6 +173,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type ScriptRunRobot = z.infer<typeof script_run_robot_schema>

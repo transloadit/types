@@ -2,15 +2,16 @@ import { z } from "zod"
 
 // 🤖/audio/artwork
 
-export const audio_artwork_robot_schema = z.object({
-  robot: z.literal("/audio/artwork"),
-  method: z.enum(["extract", "insert"]).default("extract").optional()
-    .describe(`What should be done with the audio file. A value of \`"extract"\` means
+export const audio_artwork_robot_schema = z
+  .object({
+    robot: z.literal("/audio/artwork"),
+    method: z.enum(["extract", "insert"]).default("extract").optional()
+      .describe(`What should be done with the audio file. A value of \`"extract"\` means
 audio artwork will be extracted. A value of \`"insert"\` means the provided
 image will be inserted as audio artwork.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -159,13 +160,14 @@ cases:
   \`\`\`
 
 </details>`),
-  ffmpeg_stack: z.string().default("v3.3.3").optional()
-    .describe(`Selects the FFmpeg stack version to use for encoding.
+    ffmpeg_stack: z.string().default("v3.3.3").optional()
+      .describe(`Selects the FFmpeg stack version to use for encoding.
 These versions reflect real FFmpeg versions.
 
 The current recommendation is to use \`"{{stacks.ffmpeg.recommended_version}}"\`.
 Other valid values can be found [here](https://transloadit.com/docs/transcoding/video-encoding/video-presets/).
 `),
-})
+  })
+  .describe("undefined")
 
 export type AudioArtworkRobot = z.infer<typeof audio_artwork_robot_schema>

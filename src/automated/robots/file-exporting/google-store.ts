@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/google/store
 
-export const google_store_robot_schema = z.object({
-  robot: z.literal("/google/store"),
-  credentials: z.string()
-    .describe(`Create a new [Google service account](https://cloud.google.com/storage/docs/authentication).
+export const google_store_robot_schema = z
+  .object({
+    robot: z.literal("/google/store"),
+    credentials: z.string()
+      .describe(`Create a new [Google service account](https://cloud.google.com/storage/docs/authentication).
 Set its role to "Storage Object Creator". Choose "JSON" for the key file
 format and download it to your computer. You will need to upload this
 file when creating your <dfn>Template Credentials</dfn>.
@@ -31,25 +32,25 @@ Then, create your associated [Template Credentials](https://transloadit.com/c/te
 account and use the name of your <dfn>Template Credentials</dfn>
 as this parameter's value.
 `),
-  path: z.string().default("${unique_prefix}/${file.url_name}").optional()
-    .describe(`The path at which the file is to be stored. This may include any available
+    path: z.string().default("${unique_prefix}/${file.url_name}").optional()
+      .describe(`The path at which the file is to be stored. This may include any available
 [Assembly Variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables).
 `),
-  acl: z
-    .enum([
-      "public-read",
-      "authenticated-read",
-      "bucket-owner-full-control",
-      "private",
-      "project-private",
-    ])
-    .default("public-read")
-    .optional().describe(`The permissions used for this file. This can be \`"public-read"\`,
+    acl: z
+      .enum([
+        "public-read",
+        "authenticated-read",
+        "bucket-owner-full-control",
+        "private",
+        "project-private",
+      ])
+      .default("public-read")
+      .optional().describe(`The permissions used for this file. This can be \`"public-read"\`,
 \`"authenticated-read"\`, \`"bucket-owner-full-control"\`, \`"private"\` or
 \`"project-private"\`.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -198,6 +199,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type GoogleStoreRobot = z.infer<typeof google_store_robot_schema>

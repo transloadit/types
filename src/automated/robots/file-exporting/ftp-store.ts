@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/ftp/store
 
-export const ftp_store_robot_schema = z.object({
-  robot: z.literal("/ftp/store"),
-  credentials: z.string()
-    .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
+export const ftp_store_robot_schema = z
+  .object({
+    robot: z.literal("/ftp/store"),
+    credentials: z.string()
+      .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
 Transloadit account and use the name of your <dfn>Template
 Credentials</dfn> as this parameter's value. They will contain the
 values for your FTP host, user and password.
@@ -16,23 +17,23 @@ some use cases demand dynamic credentials for which using
 If you have this requirement, feel free to use the following
 parameters instead: \`"host"\`, \`"user"\`, \`"password"\`.
 `),
-  path: z.string().default("${unique_prefix}/${file.url_name}").optional()
-    .describe(`The path at which the file is to be stored. This can contain any available
+    path: z.string().default("${unique_prefix}/${file.url_name}").optional()
+      .describe(`The path at which the file is to be stored. This can contain any available
 [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables).
 
 Please note that you might need to include your homedir at the beginning
 of the path.
 `),
-  port: z.number().int().default(21).optional().describe(`The port to use for the FTP connection.
+    port: z.number().int().optional().describe(`The port to use for the FTP connection.
 `),
-  url_template: z.string().default("https://{HOST}/{PATH}").optional()
-    .describe(`The URL of the file in the result JSON. The following [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables) are supported.
+    url_template: z.string().default("https://{HOST}/{PATH}").optional()
+      .describe(`The URL of the file in the result JSON. The following [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables) are supported.
 `),
-  ssl_url_template: z.string().default("https://{HOST}/{PATH}").optional()
-    .describe(`The SSL URL of the file in the result JSON. The following [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables) are supported.
+    ssl_url_template: z.string().default("https://{HOST}/{PATH}").optional()
+      .describe(`The SSL URL of the file in the result JSON. The following [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables) are supported.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -181,6 +182,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type FtpStoreRobot = z.infer<typeof ftp_store_robot_schema>

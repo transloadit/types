@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/backblaze/import
 
-export const backblaze_import_robot_schema = z.object({
-  robot: z.literal("/backblaze/import"),
-  credentials: z.string()
-    .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
+export const backblaze_import_robot_schema = z
+  .object({
+    robot: z.literal("/backblaze/import"),
+    credentials: z.string()
+      .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
 Transloadit account and use the name of your <dfn>Template
 Credentials</dfn> as this parameter's value.
 They will contain the values for your Backblaze Bucket Name, App Key ID, and App Key.
@@ -31,8 +32,8 @@ some use cases demand dynamic credentials for which using
 nature. If you have this requirement, feel free to use the following
 parameters instead: \`"bucket"\`, \`"app_key_id"\`, \`"app_key"\`.
 `),
-  path: z.union([z.string(), z.array(z.string())])
-    .describe(`The path in your bucket to the specific file or directory. If the path
+    path: z.union([z.string(), z.array(z.string())])
+      .describe(`The path in your bucket to the specific file or directory. If the path
 points to a file, only this file will be imported. For example:
 \`images/avatar.jpg\`.
 
@@ -51,25 +52,25 @@ If you have objects in the root of your bucket that aren't prefixed with
 You can also use an array of path strings here to import multiple paths in
 the same <dfn>Robot</dfn>'s <dfn>Step</dfn>.
 `),
-  recursive: z.boolean().default(false).optional()
-    .describe(`Setting this to \`true\` will enable importing files from subdirectories and
+    recursive: z.boolean().default(false).optional()
+      .describe(`Setting this to \`true\` will enable importing files from subdirectories and
 sub-subdirectories (etc.) of the given path.
 
 Please use the pagination parameters \`start_file_name\` and
 \`files_per_page\` wisely here.
 `),
-  start_file_name: z.string().default("").optional()
-    .describe(`The name of the last file from the previous paging call. This tells the
+    start_file_name: z.string().default("").optional()
+      .describe(`The name of the last file from the previous paging call. This tells the
 <dfn>Robot</dfn> to ignore all files up to and including this file.
 `),
-  files_per_page: z.number().int().default(1000).optional()
-    .describe(`The pagination page size. This only works when recursive is \`true\` for now,
+    files_per_page: z.number().int().default(1000).optional()
+      .describe(`The pagination page size. This only works when recursive is \`true\` for now,
 in order to not break backwards compatibility in non-recursive imports.
 `),
-  ignore_errors: z
-    .union([z.array(z.string()), z.boolean()])
-    .default([])
-    .optional().describe(`Possible array members are \`"meta"\` and \`"import"\`.
+    ignore_errors: z
+      .union([z.array(z.string()), z.boolean()])
+      .default([])
+      .optional().describe(`Possible array members are \`"meta"\` and \`"import"\`.
 
 You might see an error when trying to extract metadata from your imported
 files. This happens, for example, for files with a size of zero bytes.
@@ -82,8 +83,8 @@ not cease to function on any import errors either.
 To keep backwards compatibility, setting this parameter to \`true\` will set
 it to \`["meta", "import"]\` internally.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -232,6 +233,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type BackblazeImportRobot = z.infer<typeof backblaze_import_robot_schema>

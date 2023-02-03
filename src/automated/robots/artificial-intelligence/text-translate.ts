@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/text/translate
 
-export const text_translate_robot_schema = z.object({
-  robot: z.literal("/text/translate"),
-  provider: z.enum(["aws", "gcp"])
-    .describe(`Which AI provider to leverage. Valid values are \`"aws"\` (Amazon Web
+export const text_translate_robot_schema = z
+  .object({
+    robot: z.literal("/text/translate"),
+    provider: z.enum(["aws", "gcp"])
+      .describe(`Which AI provider to leverage. Valid values are \`"aws"\` (Amazon Web
 Services) and \`"gcp"\` (Google Cloud Platform).
 
 Transloadit outsources this
@@ -15,15 +16,15 @@ Different cloud vendors have different areas they shine in, and we
 recommend to try out and see what yields the best results for your use
 case.
 `),
-  target_language: z.enum(["en", "de", "fr"]).default("en").optional()
-    .describe(`The desired language to translate to.
+    target_language: z.enum(["en", "de", "fr"]).default("en").optional()
+      .describe(`The desired language to translate to.
 
 If the exact language can't be
 found, a generic variant can be fallen back to. For example, if you
 specify \`"en-US"\`, "en" will be used instead. Please consult the list of
 supported languages for each provider.
 `),
-  source_language: z.string().optional().describe(`The desired language to translate from.
+    source_language: z.string().optional().describe(`The desired language to translate from.
 
 By default, both providers will detect this automatically, but there
 are be cases where specifying the source language prevents ambiguities.
@@ -32,8 +33,8 @@ If the exact language can't be found, a generic variant can be fallen
 back to. For example, if you specify \`"en-US"\`, "en" will be used instead.
 Please consult the list of supported languages for each provider.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -182,6 +183,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type TextTranslateRobot = z.infer<typeof text_translate_robot_schema>

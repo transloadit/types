@@ -2,32 +2,33 @@ import { z } from "zod"
 
 // 🤖/audio/waveform
 
-export const audio_waveform_robot_schema = z.object({
-  robot: z.literal("/audio/waveform"),
-  format: z.enum(["image", "json"]).default("image").optional()
-    .describe(`The format of the result file. Can be \`"image"\` or \`"json"\`. If \`"image"\`
+export const audio_waveform_robot_schema = z
+  .object({
+    robot: z.literal("/audio/waveform"),
+    format: z.enum(["image", "json"]).default("image").optional()
+      .describe(`The format of the result file. Can be \`"image"\` or \`"json"\`. If \`"image"\`
 is supplied, a PNG image will be created, otherwise a JSON file.
 `),
-  width: z.number().int().default(256).optional()
-    .describe(`The width of the resulting image if the format \`"image"\` was selected.
+    width: z.number().int().default(256).optional()
+      .describe(`The width of the resulting image if the format \`"image"\` was selected.
 `),
-  height: z.number().int().default(64).optional()
-    .describe(`The height of the resulting image if the format \`"image"\` was selected.
+    height: z.number().int().default(64).optional()
+      .describe(`The height of the resulting image if the format \`"image"\` was selected.
 `),
-  background_color: z.string().default("00000000").optional()
-    .describe(`The background color of the resulting image in the "rrggbbaa" format (red,
+    background_color: z.string().default("00000000").optional()
+      .describe(`The background color of the resulting image in the "rrggbbaa" format (red,
 green, blue, alpha), if the format \`"image"\` was selected.
 `),
-  center_color: z.string().default("000000ff").optional()
-    .describe(`The color used in the center of the gradient. The format is "rrggbbaa"
+    center_color: z.string().default("000000ff").optional()
+      .describe(`The color used in the center of the gradient. The format is "rrggbbaa"
 (red, green, blue, alpha).
 `),
-  outer_color: z.string().default("000000ff").optional()
-    .describe(`The color used in the outer parts of the gradient. The format is
+    outer_color: z.string().default("000000ff").optional()
+      .describe(`The color used in the outer parts of the gradient. The format is
 "rrggbbaa" (red, green, blue, alpha).
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -176,10 +177,10 @@ cases:
   \`\`\`
 
 </details>`),
-  output_meta: z
-    .union([z.record(z.string()), z.boolean()])
-    .default({})
-    .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
+    output_meta: z
+      .union([z.record(z.string()), z.boolean()])
+      .default({})
+      .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
 power to calculate, and thus is disabled by default to keep your Assemblies
 processing fast.
 
@@ -196,6 +197,7 @@ mean average volume of the audio file.
 You can also set this to \`false\` to skip metadata extraction and speed up
 transcoding.
 `),
-})
+  })
+  .describe("undefined")
 
 export type AudioWaveformRobot = z.infer<typeof audio_waveform_robot_schema>

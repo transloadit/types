@@ -2,25 +2,26 @@ import { z } from "zod"
 
 // 🤖/video/subtitle
 
-export const video_subtitle_robot_schema = z.object({
-  robot: z.literal("/video/subtitle"),
-  preset: z.string().default("empty").optional()
-    .describe(`Performs conversion using pre-configured settings. By default, no settings
+export const video_subtitle_robot_schema = z
+  .object({
+    robot: z.literal("/video/subtitle"),
+    preset: z.string().default("empty").optional()
+      .describe(`Performs conversion using pre-configured settings. By default, no settings
 are applied and the original settings of the video are preserved.
 
 For a list of video presets, see [video presets](https://transloadit.com/docs/transcoding/video-encoding/video-presets/).
 `),
-  subtitles_type: z.string().default("external").optional()
-    .describe(`Determines if subtitles are added as a separate stream to the video (value \`"external"\`) that then can be switched on and off in your video player, or if they should be burned directly into the video (value \`"burn"\`) so that they become part of the video stream.
+    subtitles_type: z.string().default("external").optional()
+      .describe(`Determines if subtitles are added as a separate stream to the video (value \`"external"\`) that then can be switched on and off in your video player, or if they should be burned directly into the video (value \`"burn"\`) so that they become part of the video stream.
 `),
-  ffmpeg: z.record(z.string()).default({}).optional()
-    .describe(`A parameter object to be passed to FFmpeg. If a preset is used, the
+    ffmpeg: z.record(z.string()).default({}).optional()
+      .describe(`A parameter object to be passed to FFmpeg. If a preset is used, the
 options specified are merged on top of the ones from the preset. For
 available options, see the [FFmpeg documentation](https://ffmpeg.org/ffmpeg-doc.html). Options specified here
 take precedence over the preset options.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -169,17 +170,17 @@ cases:
   \`\`\`
 
 </details>`),
-  ffmpeg_stack: z.string().default("v3.3.3").optional()
-    .describe(`Selects the FFmpeg stack version to use for encoding.
+    ffmpeg_stack: z.string().default("v3.3.3").optional()
+      .describe(`Selects the FFmpeg stack version to use for encoding.
 These versions reflect real FFmpeg versions.
 
 The current recommendation is to use \`"{{stacks.ffmpeg.recommended_version}}"\`.
 Other valid values can be found [here](https://transloadit.com/docs/transcoding/video-encoding/video-presets/).
 `),
-  output_meta: z
-    .union([z.record(z.string()), z.boolean()])
-    .default({})
-    .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
+    output_meta: z
+      .union([z.record(z.string()), z.boolean()])
+      .default({})
+      .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
 power to calculate, and thus is disabled by default to keep your Assemblies
 processing fast.
 
@@ -196,6 +197,7 @@ mean average volume of the audio file.
 You can also set this to \`false\` to skip metadata extraction and speed up
 transcoding.
 `),
-})
+  })
+  .describe("undefined")
 
 export type VideoSubtitleRobot = z.infer<typeof video_subtitle_robot_schema>

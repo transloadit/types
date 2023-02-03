@@ -2,12 +2,13 @@ import { z } from "zod"
 
 // 🤖/upload/handle
 
-export const upload_handle_robot_schema = z.object({
-  robot: z.literal("/upload/handle"),
-  output_meta: z
-    .union([z.record(z.string()), z.boolean()])
-    .default({})
-    .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
+export const upload_handle_robot_schema = z
+  .object({
+    robot: z.literal("/upload/handle"),
+    output_meta: z
+      .union([z.record(z.string()), z.boolean()])
+      .default({})
+      .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
 power to calculate, and thus is disabled by default to keep your Assemblies
 processing fast.
 
@@ -24,6 +25,7 @@ mean average volume of the audio file.
 You can also set this to \`false\` to skip metadata extraction and speed up
 transcoding.
 `),
-})
+  })
+  .describe("undefined")
 
 export type UploadHandleRobot = z.infer<typeof upload_handle_robot_schema>

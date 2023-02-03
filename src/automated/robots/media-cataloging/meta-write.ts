@@ -2,15 +2,16 @@ import { z } from "zod"
 
 // 🤖/meta/write
 
-export const meta_write_robot_schema = z.object({
-  robot: z.literal("/meta/write"),
-  data_to_write: z.record(z.string()).default({}).optional()
-    .describe(`A key/value map defining the metadata to write into the file.
+export const meta_write_robot_schema = z
+  .object({
+    robot: z.literal("/meta/write"),
+    data_to_write: z.record(z.string()).default({}).optional()
+      .describe(`A key/value map defining the metadata to write into the file.
 
 Valid metadata keys can be found [here](https://exiftool.org/TagNames/EXIF.html). For example: \`ProcessingSoftware\`.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -159,13 +160,14 @@ cases:
   \`\`\`
 
 </details>`),
-  ffmpeg_stack: z.string().default("v3.3.3").optional()
-    .describe(`Selects the FFmpeg stack version to use for encoding.
+    ffmpeg_stack: z.string().default("v3.3.3").optional()
+      .describe(`Selects the FFmpeg stack version to use for encoding.
 These versions reflect real FFmpeg versions.
 
 The current recommendation is to use \`"{{stacks.ffmpeg.recommended_version}}"\`.
 Other valid values can be found [here](https://transloadit.com/docs/transcoding/video-encoding/video-presets/).
 `),
-})
+  })
+  .describe("undefined")
 
 export type MetaWriteRobot = z.infer<typeof meta_write_robot_schema>

@@ -2,18 +2,19 @@ import { z } from "zod"
 
 // 🤖/file/virusscan
 
-export const file_virusscan_robot_schema = z.object({
-  robot: z.literal("/file/virusscan"),
-  error_on_decline: z.boolean().default(false).optional()
-    .describe(`If this is set to \`true\` and one or more files are declined, the Assembly
+export const file_virusscan_robot_schema = z
+  .object({
+    robot: z.literal("/file/virusscan"),
+    error_on_decline: z.boolean().default(false).optional()
+      .describe(`If this is set to \`true\` and one or more files are declined, the Assembly
 will be stopped and marked with an error.
 `),
-  error_msg: z.string().default("One of your files was declined").optional()
-    .describe(`The error message shown to your users (such as by Uppy) when a
+    error_msg: z.string().default("One of your files was declined").optional()
+      .describe(`The error message shown to your users (such as by Uppy) when a
 file is declined and \`error_on_decline\` is set to \`true\`.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -162,6 +163,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type FileVirusscanRobot = z.infer<typeof file_virusscan_robot_schema>

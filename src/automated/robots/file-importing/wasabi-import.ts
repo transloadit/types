@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/wasabi/import
 
-export const wasabi_import_robot_schema = z.object({
-  robot: z.literal("/wasabi/import"),
-  credentials: z.string()
-    .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
+export const wasabi_import_robot_schema = z
+  .object({
+    robot: z.literal("/wasabi/import"),
+    credentials: z.string()
+      .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
 Transloadit account and use the name
 of your <dfn>Template Credentials</dfn> as this parameter's value.
 They will contain the values for your Wasabi bucket, Key, Secret and
@@ -17,8 +18,8 @@ some use cases demand dynamic credentials for which using
 nature. If you have this requirement, feel free to use the following
 parameters instead: \`"bucket"\`, \`"host"\`, \`"key"\`, \`"secret"\`.
 `),
-  path: z.union([z.string(), z.array(z.string())])
-    .describe(`The path in your bucket to the specific file or directory. If the path
+    path: z.union([z.string(), z.array(z.string())])
+      .describe(`The path in your bucket to the specific file or directory. If the path
 points to a file, only this file will be imported. For example:
 \`images/avatar.jpg\`.
 
@@ -38,29 +39,29 @@ calling the GetObject operation: The specified key does not exist.\`
 You can also use an array of path strings here to import multiple paths in
 the same <dfn>Robot</dfn>'s <dfn>Step</dfn>.
 `),
-  recursive: z.boolean().default(false).optional()
-    .describe(`Setting this to \`true\` will enable importing files from subfolders and
+    recursive: z.boolean().default(false).optional()
+      .describe(`Setting this to \`true\` will enable importing files from subfolders and
 sub-subfolders, etc. of the given path.
 
 Please use the pagination parameters \`page_number\` and \`files_per_page\`
 wisely here.
 `),
-  page_number: z.number().int().default(1).optional()
-    .describe(`The pagination page number. For now, in order to not break backwards compatibility
+    page_number: z.number().int().default(1).optional()
+      .describe(`The pagination page number. For now, in order to not break backwards compatibility
 in non-recursive imports, this only works when recursive is set to \`true\`.
 
 When doing big imports, make sure no files are added or removed from other
 scripts within your path, otherwise you might get weird results with
 the pagination.
 `),
-  files_per_page: z.number().int().default(1000).optional()
-    .describe(`The pagination page size. This only works when recursive is \`true\` for now,
+    files_per_page: z.number().int().default(1000).optional()
+      .describe(`The pagination page size. This only works when recursive is \`true\` for now,
 in order to not break backwards compatibility in non-recursive imports.
 `),
-  ignore_errors: z
-    .union([z.array(z.string()), z.boolean()])
-    .default([])
-    .optional().describe(`Possible array members are \`"meta"\` and \`"import"\`.
+    ignore_errors: z
+      .union([z.array(z.string()), z.boolean()])
+      .default([])
+      .optional().describe(`Possible array members are \`"meta"\` and \`"import"\`.
 
 You might see an error when trying to extract metadata from your imported
 files. This happens, for example, for files with a size of zero bytes.
@@ -73,8 +74,8 @@ not cease to function on any import errors either.
 To keep backwards compatibility, setting this parameter to \`true\` will set
 it to \`["meta", "import"]\` internally.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -223,6 +224,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type WasabiImportRobot = z.infer<typeof wasabi_import_robot_schema>

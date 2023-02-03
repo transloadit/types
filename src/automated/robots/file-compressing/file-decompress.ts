@@ -2,12 +2,13 @@ import { z } from "zod"
 
 // 🤖/file/decompress
 
-export const file_decompress_robot_schema = z.object({
-  robot: z.literal("/file/decompress"),
-  ignore_errors: z
-    .union([z.array(z.string()), z.boolean()])
-    .default([])
-    .optional().describe(`A possible array member is only \`"meta"\`.
+export const file_decompress_robot_schema = z
+  .object({
+    robot: z.literal("/file/decompress"),
+    ignore_errors: z
+      .union([z.array(z.string()), z.boolean()])
+      .default([])
+      .optional().describe(`A possible array member is only \`"meta"\`.
 
 You might see an error when trying to extract metadata from the files inside
 your archive. This happens, for example, for files with a size of zero bytes.
@@ -18,8 +19,8 @@ happens.
 To keep backwards compatibility, setting this parameter to \`true\` will set
 it to \`["meta"]\` internally.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -168,6 +169,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type FileDecompressRobot = z.infer<typeof file_decompress_robot_schema>

@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/minio/store
 
-export const minio_store_robot_schema = z.object({
-  robot: z.literal("/minio/store"),
-  credentials: z.string()
-    .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
+export const minio_store_robot_schema = z
+  .object({
+    robot: z.literal("/minio/store"),
+    credentials: z.string()
+      .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
 Transloadit account and use the name
 of your <dfn>Template Credentials</dfn> as this parameter's value.
 They will contain the values for your MinIO bucket, Key, Secret and Bucket
@@ -17,32 +18,32 @@ some use cases demand dynamic credentials for which using
 nature. If you have this requirement, feel free to use the following
 parameters instead: \`"bucket"\`, \`"host"\`, \`"key"\`, \`"secret"\`.
 `),
-  path: z.string().default("${unique_prefix}/${file.url_name}").optional()
-    .describe(`The path at which the file is to be stored. This may include any available
+    path: z.string().default("${unique_prefix}/${file.url_name}").optional()
+      .describe(`The path at which the file is to be stored. This may include any available
 [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables). The path
 must not be a directory.
 `),
-  acl: z.enum(["public-read", "private"]).default("public-read").optional()
-    .describe(`The permissions used for this file. This can be \`"public-read"\` or
+    acl: z.enum(["public-read", "private"]).default("public-read").optional()
+      .describe(`The permissions used for this file. This can be \`"public-read"\` or
 \`"private"\`.
 `),
-  headers: z.record(z.string()).default({ "Content-Type": "${file.mime}" }).optional()
-    .describe(`An object containing a list of headers to be set for this file on MinIO
-Spaces, such as \`{  FileURL: "\${file.url_name}" }\`. This can also include
+    headers: z.record(z.string()).default({ "Content-Type": "${file.mime}" }).optional()
+      .describe(`An object containing a list of headers to be set for this file on MinIO
+Spaces, such as \`{ FileURL: "\${file.url_name}" }\`. This can also include
 any available [Assembly Variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables).
 
 Object Metadata can be specified using \`x-amz-meta-*\` headers. Note that
 these headers [do not support non-ASCII metadata values](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#UserMetadata).
 `),
-  sign_urls_for: z.number().int().optional()
-    .describe(`This parameter provides signed URLs in the result JSON (in the
+    sign_urls_for: z.number().int().optional()
+      .describe(`This parameter provides signed URLs in the result JSON (in the
 \`signed_ssl_url\` property). The number that you set this parameter to is
 the URL expiry time in seconds.
 
 If this parameter is not used, no URL signing is done.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -191,6 +192,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type MinioStoreRobot = z.infer<typeof minio_store_robot_schema>

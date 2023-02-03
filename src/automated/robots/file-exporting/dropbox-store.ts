@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/dropbox/store
 
-export const dropbox_store_robot_schema = z.object({
-  robot: z.literal("/dropbox/store"),
-  credentials: z.string()
-    .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
+export const dropbox_store_robot_schema = z
+  .object({
+    robot: z.literal("/dropbox/store"),
+    credentials: z.string()
+      .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
 Transloadit account and use the name of your <dfn>Template
 Credentials</dfn> as this parameter's value. They will contain the
 values for your access token. You can create your Dropbox Access Token
@@ -17,16 +18,16 @@ some use cases demand dynamic credentials for which using
 nature. If you have this requirement, feel free to use the \`"access_token"\`
 parameter instead.
 `),
-  path: z.string().default("${unique_prefix}/${file.url_name}").optional()
-    .describe(`The path at which the file is to be stored. This may include any available
+    path: z.string().default("${unique_prefix}/${file.url_name}").optional()
+      .describe(`The path at which the file is to be stored. This may include any available
 [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables).
 `),
-  create_sharing_link: z.boolean().default(false).optional()
-    .describe(`Whether to create a URL to this file for sharing with other people. This
+    create_sharing_link: z.boolean().default(false).optional()
+      .describe(`Whether to create a URL to this file for sharing with other people. This
 will overwrite the file's \`"url"\` property.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -175,6 +176,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type DropboxStoreRobot = z.infer<typeof dropbox_store_robot_schema>

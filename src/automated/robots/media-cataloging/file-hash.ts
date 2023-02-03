@@ -2,16 +2,17 @@ import { z } from "zod"
 
 // 🤖/file/hash
 
-export const file_hash_robot_schema = z.object({
-  robot: z.literal("/file/hash"),
-  algorithm: z.enum(["b2", "md5", "sha1", "sha224", "sha256", "sha384", "sha512"]).optional()
-    .describe(`The hashing algorithm to use. Supported values are \`"b2"\`, \`"md5"\`,
+export const file_hash_robot_schema = z
+  .object({
+    robot: z.literal("/file/hash"),
+    algorithm: z.enum(["b2", "md5", "sha1", "sha224", "sha256", "sha384", "sha512"]).optional()
+      .describe(`The hashing algorithm to use. Supported values are \`"b2"\`, \`"md5"\`,
 \`"sha1"\`, \`"sha224"\`, \`"sha256"\`, \`"sha384"\` and \`"sha512"\`.
 
 The file hash is exported as \`file.meta.hash\`.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -160,6 +161,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type FileHashRobot = z.infer<typeof file_hash_robot_schema>

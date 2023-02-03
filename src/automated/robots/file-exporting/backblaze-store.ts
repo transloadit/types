@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/backblaze/store
 
-export const backblaze_store_robot_schema = z.object({
-  robot: z.literal("/backblaze/store"),
-  credentials: z.string()
-    .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
+export const backblaze_store_robot_schema = z
+  .object({
+    robot: z.literal("/backblaze/store"),
+    credentials: z.string()
+      .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
 Transloadit account and use the name of your <dfn>Template
 Credentials</dfn> as this parameter's value.
 They will contain the values for your Backblaze Bucket Name, App Key ID, and App Key.
@@ -31,12 +32,12 @@ some use cases demand dynamic credentials for which using
 nature. If you have this requirement, feel free to use the following
 parameters instead: \`"bucket"\`, \`"app_key_id"\`, \`"app_key"\`.
 `),
-  path: z.string().default("${unique_prefix}/${file.url_name}").optional()
-    .describe(`The path at which the file is to be stored. This may include any available
+    path: z.string().default("${unique_prefix}/${file.url_name}").optional()
+      .describe(`The path at which the file is to be stored. This may include any available
 [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables).
 `),
-  headers: z.record(z.string()).default({}).optional()
-    .describe(`An object containing a list of headers to be set for this file on
+    headers: z.record(z.string()).default({}).optional()
+      .describe(`An object containing a list of headers to be set for this file on
 backblaze, such as \`{ FileURL: "\${file.url_name}" }\`. This can also
 include any available [Assembly Variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables).
 
@@ -45,8 +46,8 @@ a list of available headers.
 
 Object Metadata can be specified using \`X-Bz-Info-*\` headers.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -195,6 +196,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type BackblazeStoreRobot = z.infer<typeof backblaze_store_robot_schema>

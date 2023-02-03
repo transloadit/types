@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/cloudfiles/import
 
-export const cloudfiles_import_robot_schema = z.object({
-  robot: z.literal("/cloudfiles/import"),
-  credentials: z.string()
-    .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
+export const cloudfiles_import_robot_schema = z
+  .object({
+    robot: z.literal("/cloudfiles/import"),
+    credentials: z.string()
+      .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
 Transloadit account and use the name of your
 [Template Credentials](https://transloadit.com/c/template-credentials/)
 as this parameter's value. They will contain the values for your Cloud
@@ -19,8 +20,8 @@ parameters instead: \`"account_type"\` ("us" or "uk"), \`"data_center"\`
 ("dfw" for Dallas or "ord" for Chicago for example), \`"user"\`, \`"key"\`,
 \`"container"\`.
 `),
-  path: z.union([z.string(), z.array(z.string())])
-    .describe(`The path in your bucket to the specific file or directory. If the path
+    path: z.union([z.string(), z.array(z.string())])
+      .describe(`The path in your bucket to the specific file or directory. If the path
 points to a file, only this file will be imported. For example:
 \`images/avatar.jpg\`.
 
@@ -34,29 +35,29 @@ files from subdirectories and sub-subdirectories, enable the \`recursive\` param
 You can also use an array of path strings here to import multiple paths in
 the same <dfn>Robot</dfn>'s <dfn>Step</dfn>.
 `),
-  recursive: z.boolean().default(false).optional()
-    .describe(`Setting this to \`true\` will enable importing files from subdirectories and
+    recursive: z.boolean().default(false).optional()
+      .describe(`Setting this to \`true\` will enable importing files from subdirectories and
 sub-subdirectories (etc.) of the given path.
 
 Please use the pagination parameters \`page_number\` and \`files_per_page\`
 wisely here.
 `),
-  page_number: z.number().int().default(1).optional()
-    .describe(`The pagination page number. For now, in order to not break backwards compatibility
+    page_number: z.number().int().default(1).optional()
+      .describe(`The pagination page number. For now, in order to not break backwards compatibility
 in non-recursive imports, this only works when recursive is set to \`true\`.
 
 When doing big imports, make sure no files are added or removed from other
 scripts within your path, otherwise you might get weird results with the
 pagination.
 `),
-  files_per_page: z.number().int().default(1000).optional()
-    .describe(`The pagination page size. This only works when recursive is \`true\` for now,
+    files_per_page: z.number().int().default(1000).optional()
+      .describe(`The pagination page size. This only works when recursive is \`true\` for now,
 in order to not break backwards compatibility in non-recursive imports.
 `),
-  ignore_errors: z
-    .union([z.array(z.string()), z.boolean()])
-    .default([])
-    .optional().describe(`Possible array members are \`"meta"\` and \`"import"\`.
+    ignore_errors: z
+      .union([z.array(z.string()), z.boolean()])
+      .default([])
+      .optional().describe(`Possible array members are \`"meta"\` and \`"import"\`.
 
 You might see an error when trying to extract metadata from your imported
 files. This happens, for example, for files with a size of zero bytes.
@@ -69,8 +70,8 @@ not cease to function on any import errors either.
 To keep backwards compatibility, setting this parameter to \`true\` will set
 it to \`["meta", "import"]\` internally.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -219,6 +220,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type CloudfilesImportRobot = z.infer<typeof cloudfiles_import_robot_schema>

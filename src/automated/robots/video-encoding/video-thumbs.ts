@@ -2,17 +2,19 @@ import { z } from "zod"
 
 // 🤖/video/thumbs
 
-export const video_thumbs_robot_schema = z.object({
-  robot: z.literal("/video/thumbs"),
-  count: z.number().int().min(1).max(999).default(8).optional()
-    .describe(`The number of thumbnails to be extracted. As some videos have incorrect
+export const video_thumbs_robot_schema = z
+  .object({
+    robot: z.literal("/video/thumbs"),
+    count: z.number().int().min(1).max(999).default(8).optional()
+      .describe(`The number of thumbnails to be extracted. As some videos have incorrect
 durations, the actual number of thumbnails generated may be less in rare
 cases. The maximum number of thumbnails we currently allow is 999.
 `),
-  offsets: z
-    .union([z.array(z.number().int()), z.array(z.string())])
-    .default([])
-    .optional().describe(`An array of offsets representing seconds of the file duration, such as \`[
+    offsets: z
+      .union([z.array(z.number().int()), z.array(z.string())])
+      .default([])
+      .optional()
+      .describe(`An array of offsets representing seconds of the file duration, such as \`[
 2, 45, 120 ]\`. Millisecond durations of a file can also be used by using
 decimal place values.  For example, an offset from 1250 milliseconds would
 be represented with \`1.25\`. Offsets can also be percentage values such as
@@ -22,37 +24,37 @@ This option cannot be used with the \`count\`
 parameter, and takes precedence if both are specified. Out-of-range
 offsets are silently ignored.
 `),
-  format: z.enum(["jpeg", "jpg", "png"]).default("jpeg").optional()
-    .describe(`The format of the extracted thumbnail. Supported values are \`"jpg"\`,
+    format: z.enum(["jpeg", "jpg", "png"]).default("jpeg").optional()
+      .describe(`The format of the extracted thumbnail. Supported values are \`"jpg"\`,
 \`"jpeg"\` and \`"png"\`. Even if you specify the format to be \`"jpeg"\` the
 resulting thumbnails will have a \`"jpg"\` file extension.
 `),
-  width: z.number().int().min(1).max(1920).optional()
-    .describe(`The width of the thumbnail, in pixels.
+    width: z.number().int().min(1).max(1920).optional()
+      .describe(`The width of the thumbnail, in pixels.
 `),
-  height: z.number().int().min(1).max(1080).optional()
-    .describe(`The height of the thumbnail, in pixels.
+    height: z.number().int().min(1).max(1080).optional()
+      .describe(`The height of the thumbnail, in pixels.
 `),
-  resize_strategy: z
-    .enum(["fit", "fillcrop", "min_fit", "pad", "stretch", "crop"])
-    .default("pad")
-    .optional()
-    .describe(`One of the [available resize strategies](https://transloadit.com/docs/transcoding/image-manipulation/image-resize/#resize-strategies).
+    resize_strategy: z
+      .enum(["fit", "fillcrop", "min_fit", "pad", "stretch", "crop"])
+      .default("pad")
+      .optional()
+      .describe(`One of the [available resize strategies](https://transloadit.com/docs/transcoding/image-manipulation/image-resize/#resize-strategies).
 `),
-  background: z.string().default("00000000").optional()
-    .describe(`The background color of the resulting thumbnails in the \`"rrggbbaa"\` format
+    background: z.string().default("00000000").optional()
+      .describe(`The background color of the resulting thumbnails in the \`"rrggbbaa"\` format
 (red, green, blue, alpha) when used with the \`"pad"\` resize strategy. The
 default color is black.
 `),
-  rotate: z.number().int().optional()
-    .describe(`Forces the video to be rotated by the specified degree integer. Currently,
+    rotate: z.number().int().optional()
+      .describe(`Forces the video to be rotated by the specified degree integer. Currently,
 only multiples of 90 are supported. We automatically correct the
 orientation of many videos when the orientation is provided by the camera.
 This option is only useful for videos requiring rotation because it was
 not detected by the camera.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -201,17 +203,17 @@ cases:
   \`\`\`
 
 </details>`),
-  ffmpeg_stack: z.string().default("v3.3.3").optional()
-    .describe(`Selects the FFmpeg stack version to use for encoding.
+    ffmpeg_stack: z.string().default("v3.3.3").optional()
+      .describe(`Selects the FFmpeg stack version to use for encoding.
 These versions reflect real FFmpeg versions.
 
 The current recommendation is to use \`"{{stacks.ffmpeg.recommended_version}}"\`.
 Other valid values can be found [here](https://transloadit.com/docs/transcoding/video-encoding/video-presets/).
 `),
-  output_meta: z
-    .union([z.record(z.string()), z.boolean()])
-    .default({})
-    .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
+    output_meta: z
+      .union([z.record(z.string()), z.boolean()])
+      .default({})
+      .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
 power to calculate, and thus is disabled by default to keep your Assemblies
 processing fast.
 
@@ -228,6 +230,7 @@ mean average volume of the audio file.
 You can also set this to \`false\` to skip metadata extraction and speed up
 transcoding.
 `),
-})
+  })
+  .describe("undefined")
 
 export type VideoThumbsRobot = z.infer<typeof video_thumbs_robot_schema>

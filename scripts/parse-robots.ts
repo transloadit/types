@@ -40,7 +40,7 @@ async function processRobot(file_contents: string) {
 // 🤖${data.rname}
 
 export const ${name} = ${zobj(
-    `robot: ${zlit(data.rname)}`,
+    `robot: ${zlit(JSON.stringify(data.rname))}`,
     ...parse_parameters(data.parameters)
   )}.describe("${data.purpose}")
   
@@ -88,40 +88,49 @@ function parse_parameter(name: string, value: any) {
 
 function parse_default(value: Record<string, any>) {
   if (value.default) {
-    if (typeof value.default === "string") {
-      const str = value.default.trim()
-      if (str.startsWith("`") && str.endsWith("`")) {
-        // remove backticks
-        const unwrapped = value.default.replace(/`/g, "")
+    switch (typeof value.default) {
+      case "string": {
+        // if the string doesn't start with ` that usually means its just a description of the default
+        // and not the actual default, so we ignore it.
+        if (!value.default.startsWith("`")) return ""
+        const str = value.default.trim()
+        // remove the backticks
+        const unwrapped = str.replace(/`/g, "")
+        // parse the string as JSON
         const parsed = JSON.parse(unwrapped)
-        return `.default(${JSON.stringify(parsed)})`
+        if (parsed === null) return `.nullable().default(null)`
+        // return stringified
+        return zdefault(JSON.stringify(parsed))
       }
-
-      try {
-        const parsed = JSON.parse(str)
-        return parsed === null ? `.nullable()` : `.default(${JSON.stringify(parsed)})`
-      } catch (err) {
-        return ""
-        // ignore errors
-        // these errors are for strings that tell someone about the default, and are not specific values
+      case "number": {
+        return zdefault(value.default)
+      }
+      default: {
+        throw new Error("Unknown default type: " + value.default)
       }
     }
-
-    return `.default(${value.default})`
   }
 
   return ""
 }
 
-function parse_description(value: Record<string, any>) {
-  if (value.description) {
-    return `.describe(\`${value.description
+function parse_markdown(str: string) {
+  return (
+    str
       // remove line breaks but not if there are multiple in a row (keeps markdown paragraphs intact)
       .replace(/(?<!\\r\n?)\\r\n?(?!\\r\n?)/g, " ")
       // replace site.baseurl with transloadit.com
       .replace(/{{site.baseurl}}/g, "https://transloadit.com")
       // escape backticks
-      .replace(/`{1}/g, "\\`")}\`)`
+      .replace(/`{1}/g, "\\`")
+      // escape template string replacement tokens (${})
+      .replace(/\${/g, "\\${")
+  )
+}
+
+function parse_description(value: Record<string, any>) {
+  if (value.description) {
+    return zdesc(parse_markdown(value.description))
   }
 
   return ""
@@ -138,8 +147,17 @@ function parse_type(value: string | Record<string, any>): string {
 
   switch (true) {
     case typeof value !== "string" && "suggested_values" in value: {
-      const options = (value as Record<string, string[]>).suggested_values as string[]
-      return zenum(...options.map((v: string) => JSON.stringify(v)))
+      const options = (value as Record<string, string | number | boolean[]>).suggested_values as (
+        | string
+        | number
+        | boolean
+      )[]
+
+      if (options.every((v) => typeof v === "string")) {
+        return zenum(...options.map((v) => JSON.stringify(v)))
+      }
+
+      return zunion(...options.map((v) => zlit(JSON.stringify(v))))
     }
     case t.startsWith("Integer("): {
       // grab everything inside the parentheses
@@ -162,7 +180,7 @@ function parse_type(value: string | Record<string, any>): string {
           .map((str: string) => str.trim().replace(/`/g, ""))
           .map(Number)
 
-        return zenum(...nums)
+        return zunion(...nums.map((n) => zlit(n)))
       }
 
       return znum(true)
@@ -202,6 +220,14 @@ function capitalize(str: string) {
   return str[0].toUpperCase() + str.slice(1)
 }
 
+function zdefault(value: string | number) {
+  return `.default(${value})`
+}
+
+function zdesc(str: string) {
+  return `.describe(\`${str}\`)`
+}
+
 function zarr(str: string) {
   return `z.array(${str})`
 }
@@ -237,7 +263,7 @@ function zstr() {
 }
 
 function zlit(str: string) {
-  return `z.literal("${str}")`
+  return `z.literal(${str})`
 }
 
 function zobj(...str: string[]) {

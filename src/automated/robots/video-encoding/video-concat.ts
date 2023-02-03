@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/video/concat
 
-export const video_concat_robot_schema = z.object({
-  robot: z.literal("/video/concat"),
-  preset: z.string().default("flash").optional()
-    .describe(`Performs conversion using pre-configured settings.
+export const video_concat_robot_schema = z
+  .object({
+    robot: z.literal("/video/concat"),
+    preset: z.string().default("flash").optional()
+      .describe(`Performs conversion using pre-configured settings.
 
 If you specify your own FFmpeg parameters using the <dfn>Robot</dfn>'s
 \`ffmpeg\` parameter and you have not specified a preset, then the default
@@ -14,8 +15,8 @@ override each of the flash preset's values manually.
 
 For a list of video presets, see [video presets](https://transloadit.com/docs/transcoding/video-encoding/video-presets/).
 `),
-  video_fade_seconds: z.number().default(1).optional()
-    .describe(`When used this adds a video fade in and out effect between each section of
+    video_fade_seconds: z.number().default(1).optional()
+      .describe(`When used this adds a video fade in and out effect between each section of
 your concatenated video. The float value is used so if you want a video
 delay effect of 500 milliseconds between each video section you would
 select \`0.5\`, however, integer values can also be represented.
@@ -29,8 +30,8 @@ use our \`ffmpeg\` parameter as shown in this
 Please note this parameter is independent of adding audio fades between
 sections.
 `),
-  audio_fade_seconds: z.number().default(1).optional()
-    .describe(`When used this adds an audio fade in and out effect between each section
+    audio_fade_seconds: z.number().default(1).optional()
+      .describe(`When used this adds an audio fade in and out effect between each section
 of your concatenated video. The float value is used so if you want an
 audio delay effect of 500 milliseconds between each video section you
 would select \`0.5\`, however, integer values can also be represented.
@@ -44,14 +45,14 @@ use our \`ffmpeg\` parameter as shown in this
 Please note this parameter is independent of adding video fades between
 sections.
 `),
-  ffmpeg: z.record(z.string()).default({}).optional()
-    .describe(`A parameter object to be passed to FFmpeg. If a preset is used, the
+    ffmpeg: z.record(z.string()).default({}).optional()
+      .describe(`A parameter object to be passed to FFmpeg. If a preset is used, the
 options specified are merged on top of the ones from the preset. For
 available options, see the [FFmpeg documentation](https://ffmpeg.org/ffmpeg-doc.html). Options specified here
 take precedence over the preset options.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -200,17 +201,17 @@ cases:
   \`\`\`
 
 </details>`),
-  ffmpeg_stack: z.string().default("v3.3.3").optional()
-    .describe(`Selects the FFmpeg stack version to use for encoding.
+    ffmpeg_stack: z.string().default("v3.3.3").optional()
+      .describe(`Selects the FFmpeg stack version to use for encoding.
 These versions reflect real FFmpeg versions.
 
 The current recommendation is to use \`"{{stacks.ffmpeg.recommended_version}}"\`.
 Other valid values can be found [here](https://transloadit.com/docs/transcoding/video-encoding/video-presets/).
 `),
-  output_meta: z
-    .union([z.record(z.string()), z.boolean()])
-    .default({})
-    .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
+    output_meta: z
+      .union([z.record(z.string()), z.boolean()])
+      .default({})
+      .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
 power to calculate, and thus is disabled by default to keep your Assemblies
 processing fast.
 
@@ -227,6 +228,7 @@ mean average volume of the audio file.
 You can also set this to \`false\` to skip metadata extraction and speed up
 transcoding.
 `),
-})
+  })
+  .describe("undefined")
 
 export type VideoConcatRobot = z.infer<typeof video_concat_robot_schema>

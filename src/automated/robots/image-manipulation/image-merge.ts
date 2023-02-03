@@ -2,34 +2,35 @@ import { z } from "zod"
 
 // 🤖/image/merge
 
-export const image_merge_robot_schema = z.object({
-  robot: z.literal("/image/merge"),
-  format: z.enum(["jpg", "png"]).default("png").optional()
-    .describe(`The output format for the modified image.
+export const image_merge_robot_schema = z
+  .object({
+    robot: z.literal("/image/merge"),
+    format: z.enum(["jpg", "png"]).default("png").optional()
+      .describe(`The output format for the modified image.
 
 The currently available formats are either \`"jpg"\` or \`"png"\`.
 `),
-  direction: z.enum(["vertical", "horizontal"]).optional()
-    .describe(`Specifies the direction which the images are displayed.
+    direction: z.enum(["vertical", "horizontal"]).optional()
+      .describe(`Specifies the direction which the images are displayed.
 Valid directions include \`"vertical"\` and \`"horizontal"\`.
 `),
-  border: z.number().int().min(1).max(10).optional()
-    .describe(`An integer value which defines the gap between images on the spritesheet.
+    border: z.number().int().min(1).max(10).optional()
+      .describe(`An integer value which defines the gap between images on the spritesheet.
 
 A value of \`"10"\` would have the furthest gap, while a value of \`"1"\` would place the images side-by-side.
 `),
-  background: z.string().default("#FFFFFF").optional()
-    .describe(`Either the hexadecimal code or [name](https://www.imagemagick.org/script/color.php#color_names) of the color used to fill the background (only shown with a border > 1).
+    background: z.string().default("#FFFFFF").optional()
+      .describe(`Either the hexadecimal code or [name](https://www.imagemagick.org/script/color.php#color_names) of the color used to fill the background (only shown with a border > 1).
 
 By default, the background of transparent images is changed to white.
 
 For details about how to preserve transparency across all image types, see [this demo](https://transloadit.com/demos/image-manipulation/properly-preserve-transparency-across-all-image-types/).
 `),
-  adapative_filtering: z.boolean().default(false).optional()
-    .describe(`Controls the image compression for PNG images. Setting to \`true\` results in smaller file size, while increasing processing time. It is encouraged to keep this option disabled.
+    adapative_filtering: z.boolean().default(false).optional()
+      .describe(`Controls the image compression for PNG images. Setting to \`true\` results in smaller file size, while increasing processing time. It is encouraged to keep this option disabled.
 `),
-  quality: z.number().int().min(1).max(100).default(100).optional()
-    .describe(`Controls the image compression for JPG and PNG images. Please also take a look at [🤖/image/optimize](https://transloadit.com/docs/transcoding/image-manipulation/image-optimize/).
+    quality: z.number().int().min(1).max(100).default(100).optional()
+      .describe(`Controls the image compression for JPG and PNG images. Please also take a look at [🤖/image/optimize](https://transloadit.com/docs/transcoding/image-manipulation/image-optimize/).
 <br /> <strong>Before:</strong> <br />
 <img src="%QUALITY_BEFORE%" />
 <br /> <strong>Quality \`92\` applied:</strong> <br />
@@ -38,8 +39,8 @@ For details about how to preserve transparency across all image types, see [this
 <img src="%QUALITY_40%" />
 <br /> If this parameter is not specified, it will default to the quality of the input image. If we're unable to determine the quality, it will default to \`92\`.
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -188,10 +189,10 @@ cases:
   \`\`\`
 
 </details>`),
-  output_meta: z
-    .union([z.record(z.string()), z.boolean()])
-    .default({})
-    .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
+    output_meta: z
+      .union([z.record(z.string()), z.boolean()])
+      .default({})
+      .optional().describe(`Allows you to specify a set of metadata that is more expensive on CPU
 power to calculate, and thus is disabled by default to keep your Assemblies
 processing fast.
 
@@ -208,6 +209,7 @@ mean average volume of the audio file.
 You can also set this to \`false\` to skip metadata extraction and speed up
 transcoding.
 `),
-})
+  })
+  .describe("undefined")
 
 export type ImageMergeRobot = z.infer<typeof image_merge_robot_schema>

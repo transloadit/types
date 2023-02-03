@@ -2,10 +2,11 @@ import { z } from "zod"
 
 // 🤖/cloudfiles/store
 
-export const cloudfiles_store_robot_schema = z.object({
-  robot: z.literal("/cloudfiles/store"),
-  credentials: z.string()
-    .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
+export const cloudfiles_store_robot_schema = z
+  .object({
+    robot: z.literal("/cloudfiles/store"),
+    credentials: z.string()
+      .describe(`Please create your associated <dfn>Template Credentials</dfn> in your
 Transloadit account and use the name of your
 [Template Credentials](https://transloadit.com/c/template-credentials/)
 as this parameter's value. They will contain the values for your Cloud
@@ -19,11 +20,11 @@ parameters instead: \`"account_type"\` ("us" or "uk"), \`"data_center"\`
 ("dfw" for Dallas or "ord" for Chicago for example), \`"user"\`, \`"key"\`,
 \`"container"\`.
 `),
-  path: z.string().default("${file.id}_${file.url_name}").optional()
-    .describe(`The path at which to store the file. This value can also contain [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables).
+    path: z.string().default("${file.id}_${file.url_name}").optional()
+      .describe(`The path at which to store the file. This value can also contain [Assembly variables](https://transloadit.com/docs/topics/assembly-instructions/#assembly-variables).
 `),
-  use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
-    .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
+    use: z.union([z.string(), z.array(z.string()), z.record(z.string())])
+      .describe(`Specifies which <dfn>Step</dfn>(s) to use as input.
 
 - You can pick any names for Steps except \`":original"\` (reserved for user uploads handled by Transloadit)
 
@@ -172,6 +173,7 @@ cases:
   \`\`\`
 
 </details>`),
-})
+  })
+  .describe("undefined")
 
 export type CloudfilesStoreRobot = z.infer<typeof cloudfiles_store_robot_schema>
