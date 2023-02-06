@@ -259,19 +259,19 @@ export const ffmpegOptionsSchema = z.record(
 )
 
 export const ffmpeg_v3_3_3 = z.object({
-  ffmpeg_stack: z.literal("v3.3.3").optional(),
+  ffmpeg_stack: z.literal("v3.3.3"),
   preset: ffmpeg_v3_3_3_presets.describe(presetsDescription).optional(),
   ffmpeg: ffmpegOptionsSchema.optional().describe(ffmpegOverridesDescription),
 })
 
 export const ffmpeg_v4_3_1 = z.object({
-  ffmpeg_stack: z.literal("v4.3.1").optional(),
+  ffmpeg_stack: z.literal("v4.3.1"),
   preset: ffmpeg_v4_3_1_presets.describe(presetsDescription).optional(),
   ffmpeg: ffmpegOptionsSchema.optional().describe(ffmpegOverridesDescription),
 })
 
 export const ffmpeg_v5_0_0 = z.object({
-  ffmpeg_stack: z.literal("v5.0.0").optional(),
+  ffmpeg_stack: z.literal("v5.0.0"),
   preset: ffmpeg_v5_0_0_presets.describe(presetsDescription).optional(),
   ffmpeg: ffmpegOptionsSchema.optional().describe(ffmpegOverridesDescription),
 })
