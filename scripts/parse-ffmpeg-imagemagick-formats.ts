@@ -52,10 +52,9 @@ const presets = yaml.load(
   await fs.readFile("../content/_data_no11ty/generated_formats.yml", "utf8")
 ) as Presets
 
-const { ffmpeg, imagemagick } = presets
-
-// for (const software in presets) {
-//   const formats = presets[software]
-//   for (const format in formats) {
-//   }
-// }
+for (const software in presets) {
+  const formats = presets[software]
+  for (const format in formats) {
+    console.log(format)
+  }
+}

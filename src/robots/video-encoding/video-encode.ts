@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { ffmpegStackPresetFfmpegOverridesSchema, ffmpegStackSchema } from "../shared/ffmpeg"
+import { ffmpegStackPresetFfmpegOverridesSchema } from "../shared/ffmpeg"
 import { outputMetaSchema } from "../shared/output-meta"
 import { resizeStrategySchema } from "../shared/resize-strategy"
 import { useSchema } from "../shared/use"
