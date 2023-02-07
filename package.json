@@ -1,6 +1,6 @@
 {
   "name": "@transloadit/types",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha.1",
   "description": "TypeScript types for Transloadit Robots, Assemblies, Templates and more.",
   "main": "src/index.ts",
   "repository": "https://github.com/transloadit/types",
