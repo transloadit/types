@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { assemblySchema } from "./assembly"
+import { assemblySchema } from "./assembly.js"
 
 export const templateSchema = z.object({
   allow_steps_override: z

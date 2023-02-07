@@ -1,3 +1,3 @@
-export * from "./robots"
-export * from "./assembly"
-export * from "./template"
+export * from "./robots/index.js"
+export * from "./assembly.js"
+export * from "./template.js"

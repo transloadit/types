@@ -1,6 +1,6 @@
 import { z } from "zod"
-import { ignoreErrorsSchema } from "../shared/ignore-errors"
-import { filesPerPageSchema, pageNumberSchema, recursiveSchema } from "../shared/pagination"
+import { ignoreErrorsSchema } from "../shared/ignore-errors.js"
+import { filesPerPageSchema, pageNumberSchema, recursiveSchema } from "../shared/pagination.js"
 
 // 🤖/wasabi/import
 

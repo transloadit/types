@@ -1,7 +1,7 @@
 import { z } from "zod"
-import { useSchema } from "../shared/use"
-import { imagemagickStackSchema } from "../shared/imagemagick-stack"
-import { outputMetaSchema } from "../shared/output-meta"
+import { useSchema } from "../shared/use.js"
+import { imagemagickStackSchema } from "../shared/imagemagick-stack.js"
+import { outputMetaSchema } from "../shared/output-meta.js"
 
 // 🤖/document/thumbs
 

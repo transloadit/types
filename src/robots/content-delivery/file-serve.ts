@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { useSchema } from "../shared/use"
+import { useSchema } from "../shared/use.js"
 
 // 🤖/file/serve
 

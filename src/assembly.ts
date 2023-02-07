@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { robotSchema } from "./robots"
+import { robotSchema } from "./robots/index.js"
 
 export const assemblySchema = z.object({
   template_id: z.string().optional(),

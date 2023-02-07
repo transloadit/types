@@ -1,8 +1,8 @@
 import { z } from "zod"
-import { ffmpegStackPresetFfmpegOverridesSchema } from "../shared/ffmpeg"
-import { outputMetaSchema } from "../shared/output-meta"
-import { resizeStrategySchema } from "../shared/resize-strategy"
-import { useSchema } from "../shared/use"
+import { ffmpegStackPresetFfmpegOverridesSchema } from "../shared/ffmpeg.js"
+import { outputMetaSchema } from "../shared/output-meta.js"
+import { resizeStrategySchema } from "../shared/resize-strategy.js"
+import { useSchema } from "../shared/use.js"
 
 const base = z.object({
   robot: z.literal("/video/encode"),

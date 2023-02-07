@@ -1,7 +1,7 @@
 import { z } from "zod"
-import { useSchema } from "../shared/use"
-import { ffmpegOptionsSchema, ffmpegStackSchema } from "../shared/ffmpeg"
-import { outputMetaSchema } from "../shared/output-meta"
+import { useSchema } from "../shared/use.js"
+import { ffmpegOptionsSchema, ffmpegStackSchema } from "../shared/ffmpeg.js"
+import { outputMetaSchema } from "../shared/output-meta.js"
 
 // 🤖/audio/merge
 

@@ -1,6 +1,6 @@
 import { z } from "zod"
-import { useSchema } from "../shared/use"
-import { outputMetaSchema } from "../shared/output-meta"
+import { useSchema } from "../shared/use.js"
+import { outputMetaSchema } from "../shared/output-meta.js"
 
 // 🤖/audio/waveform
 

@@ -1,6 +1,6 @@
 import { z } from "zod"
-import { ignoreErrorsSchema } from "../shared/ignore-errors"
-import { useSchema } from "../shared/use"
+import { ignoreErrorsSchema } from "../shared/ignore-errors.js"
+import { useSchema } from "../shared/use.js"
 
 // 🤖/file/decompress
 

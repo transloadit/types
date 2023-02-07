@@ -1,8 +1,8 @@
 import { z } from "zod"
-import { useSchema } from "../shared/use"
-import { ffmpegStackSchema } from "../shared/ffmpeg"
-import { outputMetaSchema } from "../shared/output-meta"
-import { ffmpegOptionsSchema } from "../shared/ffmpeg"
+import { useSchema } from "../shared/use.js"
+import { ffmpegStackSchema } from "../shared/ffmpeg.js"
+import { outputMetaSchema } from "../shared/output-meta.js"
+import { ffmpegOptionsSchema } from "../shared/ffmpeg.js"
 
 // 🤖/audio/encode
 

@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { useSchema } from "../shared/use"
+import { useSchema } from "../shared/use.js"
 
 export const videoAdaptiveRobotSchema = z.object({
   robot: z.literal("/video/adaptive"),

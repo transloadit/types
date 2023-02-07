@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { ignoreErrorsSchema } from "../shared/ignore-errors"
+import { ignoreErrorsSchema } from "../shared/ignore-errors.js"
 
 // 🤖/dropbox/import
 

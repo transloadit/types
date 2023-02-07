@@ -3,8 +3,8 @@
   "compilerOptions": {
     "outDir": "dist",
     "lib": ["ESNext"],
-    "module": "es2022",
-    "moduleResolution": "node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "incremental": true,
     "target": "es2022",
     "declaration": true,

@@ -1,6 +1,6 @@
 import { z } from "zod"
-import { useSchema } from "../shared/use"
-import { ffmpegStackSchema } from "../shared/ffmpeg"
+import { useSchema } from "../shared/use.js"
+import { ffmpegStackSchema } from "../shared/ffmpeg.js"
 
 // 🤖/meta/write
 

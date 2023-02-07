@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { outputMetaSchema } from "../shared/output-meta"
+import { outputMetaSchema } from "../shared/output-meta.js"
 
 export const uploadHandleRobotSchema = z.object({
   robot: z.literal("/upload/handle"),
