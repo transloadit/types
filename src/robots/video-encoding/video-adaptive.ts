@@ -38,3 +38,5 @@ export const videoAdaptiveRobotSchema = z.object({
 The current recommendation is to use \`"v4.3.1"\`. Other valid values can be found [here](https://transloadit.com/docs/transcoding/video-encoding/video-presets/).`)
   ),
 })
+
+export type VideoAdaptiveRobot = z.infer<typeof videoAdaptiveRobotSchema>
