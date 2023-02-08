@@ -124,7 +124,7 @@ import type { VideoMergeRobot } from "./video-encoding/video-merge.js"
 import type { VideoSubtitleRobot } from "./video-encoding/video-subtitle.js"
 import type { VideoThumbsRobot } from "./video-encoding/video-thumbs.js"
 
-export const robotSchema = z.union([
+export const robotSchema = z.discriminatedUnion("robot", [
   audioArtworkRobotSchema,
   audioConcatRobotSchema,
   audioEncodeRobotSchema,

@@ -32,8 +32,11 @@ When you add a \`notify_url\`, Transloadit is going to inform your back-end, no 
 `),
   auth: z.object({
     key: z.string(),
-    expires: z.string().optional(),
-    referer: z.string().regex(/^\d{4}\/(?:\d{2}(?:\/|\s|:)?){5}\+00:00$/g),
+    expires: z
+      .string()
+      .regex(/^\d{4}\/(?:\d{2}(?:\/|\s|:)?){5}\+00:00$/g)
+      .optional(),
+    referer: z.string(),
   }),
   steps: z
     .record(

@@ -267,8 +267,10 @@ pixels the image is "spread"; think of it as the size of the brush used to
 blur the image. This number is a floating point value, enabling small
 values like \`"0.5"\` to be used.
 `),
-    text: z.array(z.record(z.string())).default([]).optional()
-      .describe(`An array of objects each containing text rules. The following text
+    text: z
+      .array(z.record(z.union([z.string(), z.number()])))
+      .default([])
+      .optional().describe(`An array of objects each containing text rules. The following text
 parameters are intended to be used as properties for your array of
 text overlays. Here is an example:
 
@@ -489,7 +491,7 @@ integer) or removed (negative integer) from the vertical alignment.
 `),
     use: useSchema,
     imagemagick_stack: imagemagickStackSchema,
-    output_meta: outputMetaSchema,
+    output_meta: outputMetaSchema.optional(),
   })
   .describe(
     `resizes, crops, changes colorization, rotation, and applies text and watermarks to images`
